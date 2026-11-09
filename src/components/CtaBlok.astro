@@ -1,0 +1,81 @@
+---
+/**
+ * Afsluitende actieblok. De donkere vlakte van de site: zeeblauw
+ * met witte tekst en een knop in het signaal.
+ */
+interface Props {
+  title: string;
+  text: string;
+  primaryLabel: string;
+  primaryHref: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+}
+
+const {
+  title,
+  text,
+  primaryLabel,
+  primaryHref,
+  secondaryLabel,
+  secondaryHref,
+} = Astro.props;
+---
+
+<section class="cta">
+  <div class="rail cta-rij">
+    <div class="cta-tekst">
+      <h2>{title}</h2>
+      <p>{text}</p>
+    </div>
+    <div class="cta-knoppen">
+      <a href={primaryHref} class="knop knop-signaal">{primaryLabel}</a>
+      {
+        secondaryLabel && secondaryHref && (
+          <a href={secondaryHref} class="knop knop-wit">{secondaryLabel}</a>
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta {
+    background-color: var(--color-haven);
+    color: var(--color-wit);
+  }
+
+  .cta-rij {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-block: 3.5rem;
+  }
+
+  .cta-tekst h2 {
+    font-size: clamp(1.75rem, 3.2vw, 2.375rem);
+    color: var(--color-wit);
+    max-width: 28rem;
+  }
+
+  .cta-tekst p {
+    margin-top: 0.875rem;
+    color: var(--color-wit-mist);
+    max-width: 36rem;
+  }
+
+  .cta-knoppen {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 900px) {
+    .cta-rij {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding-block: 4.5rem;
+    }
+  }
+</style>

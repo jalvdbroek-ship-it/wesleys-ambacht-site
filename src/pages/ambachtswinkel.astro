@@ -1,0 +1,385 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import SectieKop from '../components/SectieKop.astro';
+import CtaBlok from '../components/CtaBlok.astro';
+import Faq from '../components/Faq.astro';
+import HavenBand from '../components/HavenBand.astro';
+import { beloften, overOns, samenwerkingen, site, havenRondje } from '../data/site';
+---
+
+<BaseLayout
+  title="De Ambachtswinkel — verse vis en ambachtelijke producten in Stellendam"
+  description="De Ambachtswinkel op de buitenhaven van Stellendam: verse vis direct van de vismijn, ambachtelijke producten, afhaalmaaltijden, verse broodjes en een terras aan het water."
+  ogImage="/images/linkkaart.png"
+>
+  <Hero
+    eyebrow="Onderdeel van de vismijn"
+    titel="De Ambachtswinkel"
+    lead="Op de buitenhaven van Stellendam, naast de vismijn. Verse vis direct van de boot, ambachtelijke producten van Wesley en Marjoleine, en een terras met uitzicht over het water."
+    foto="/images/terras-zonsondergang.jpg"
+    fotoAlt="Het terras van de Ambachtswinkel bij zonsondergang, met tafels aan de buitenhaven."
+    fotoPositie="50% 60%"
+  />
+
+  <section class="sectie">
+    <div class="rail">
+      <SectieKop eyebrow="Het concept" title="Het beste van zee en land" lead={overOns.intro} />
+
+      <div class="beloften-grid">
+        <ul class="beloften">
+          {
+            beloften.map((belofte) => (
+              <li>
+                <h3>{belofte.titel}</h3>
+                <p>{belofte.tekst}</p>
+              </li>
+            ))
+          }
+        </ul>
+
+        <figure class="winkel-foto">
+          <img
+            src="/images/haven-avond.jpg"
+            alt="Vissersboten aan de avondhaven van Stellendam, met de kustverlichting aan."
+            width="1092"
+            height="1441"
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption>De buitenhaven van Stellendam, waar de winkel staat.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sectie sectie-schuim">
+    <div class="rail">
+      <SectieKop
+        eyebrow="Lokaal samenwerken"
+        title="Het beste van Stellendam onder één dak"
+        lead="Wij werken met de mensen om de hoek. Verse groenten, vers brood, verse garnalen en vis uit de vismijn."
+      />
+
+      <ul class="samenwerkingen">
+        {
+          samenwerkingen.map((partner) => (
+            <li class="">
+              <h3>{partner.naam}</h3>
+              <p>{partner.wat}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="sectie">
+    <div class="rail">
+      <SectieKop
+        eyebrow="Om de hoek"
+        title="Een rondje langs de haven"
+        lead="Alles wat je op vijf minuten lopen vindt. Leuk om te combineren met een afhaalmaaltijd."
+      />
+
+      <ul class="rondje">
+        {
+          havenRondje.map((plek) => (
+            <li>
+              <h3>{plek.plaats}</h3>
+              <p>{plek.wat}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <HavenBand
+    afbeelding="/images/zonsondergang-havenkroeg.jpg"
+    alt="Het havenplein van Stellendam bij zonsondergang, met terrassen en de havenkroeg."
+    zin="Een tafel aan het water, en de zon die eronderdoor zakt."
+    onderschrift="Het terras van de Ambachtswinkel aan de buitenhaven."
+  />
+
+  <section class="sectie" id="open">
+    <div class="rail bezoek-grid">
+      <div class="">
+        <SectieKop eyebrow="Bezoeken" title="Waar je ons vindt" />
+        <dl class="feiten">
+          <div>
+            <dt>Adres</dt>
+            <dd>
+              <a href={site.maps} target="_blank" rel="noopener" class="tekst-link">
+                {site.address.straat}<br />
+                {site.address.postcode} {site.address.plaats}
+              </a>
+            </dd>
+          </div>
+          <div>
+            <dt>Openingstijden</dt>
+            <dd>
+              {site.openingstijden.map((rij) => (
+                <span class="tijdregel">
+                  <span>{rij.dag}</span>
+                  <span>{rij.tijd}</span>
+                </span>
+              ))}
+            </dd>
+          </div>
+          <div>
+            <dt>Telefoon</dt>
+            <dd>
+              <a href={`tel:${site.phoneHref}`} class="tekst-link">{site.phone}</a>
+            </dd>
+          </div>
+          <div>
+            <dt>E-mail</dt>
+            <dd>
+              <a href={`mailto:${site.email}`} class="tekst-link">{site.email}</a>
+            </dd>
+          </div>
+          <div>
+            <dt>Parkeren</dt>
+            <dd>Gratis parkeerplaats bij de haven.</dd>
+          </div>
+        </dl>
+        <a
+          href={site.maps}
+          target="_blank"
+          rel="noopener"
+          class="knop knop-haven bezoek-knop"
+        >
+          Routebeschrijving
+        </a>
+      </div>
+
+      <figure class="terras-foto">
+        <img
+          src="/images/havenplein-terras.jpg"
+          alt="Het terras van de Ambachtswinkel aan de buitenhaven, met tafels naast het water."
+          width="1417"
+          height="1110"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>Terras aan de buitenhaven, met de kust in de achtergrond.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="sectie sectie-schuim">
+    <div class="rail">
+      <SectieKop
+        eyebrow="Praktisch"
+        title="Veelgestelde vragen"
+        lead="Wat klanten ons het vaakst vragen voordat ze komen."
+      />
+      <div class="faq-wrap">
+        <Faq />
+      </div>
+    </div>
+  </section>
+
+  <CtaBlok
+    title="Kom je langs?"
+    text="Of wil je meteen een tafel reserveren aan het water? Bel of mail ons, dan zetten we het klaar."
+    primaryLabel="Plan een bezoek"
+    primaryHref="/contact"
+    secondaryLabel="Bekijk het cateringaanbod"
+    secondaryHref="/catering"
+  />
+</BaseLayout>
+
+<style>
+  .beloften-grid {
+    display: grid;
+    gap: 2.5rem;
+    margin-top: 3rem;
+  }
+
+  .beloften {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .beloften li {
+    border-top: 1px solid var(--color-lijn);
+    padding-top: 1rem;
+  }
+
+  .beloften h3 {
+    font-size: 1.125rem;
+  }
+
+  .beloften p {
+    margin-top: 0.375rem;
+    color: var(--color-ink-mist);
+    font-size: 0.9375rem;
+  }
+
+  .winkel-foto {
+    margin: 0;
+  }
+
+  .winkel-foto img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-kaart);
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .winkel-foto figcaption {
+    margin-top: 0.875rem;
+    font-size: 0.8125rem;
+    color: var(--color-ink-mist);
+  }
+
+  @media (min-width: 900px) {
+    .beloften-grid {
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 4rem;
+    }
+
+    .beloften {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem 2.5rem;
+    }
+  }
+
+  .samenwerkingen {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: 3rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .rondje {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 3rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .rondje li {
+    position: relative;
+    padding-left: 1.25rem;
+    border-left: 2px solid var(--color-signaal);
+  }
+
+  .rondje h3 {
+    font-size: 1.0625rem;
+  }
+
+  .rondje p {
+    margin-top: 0.375rem;
+    font-size: 0.9375rem;
+    color: var(--color-ink-mist);
+  }
+
+  .samenwerkingen li {
+    padding: 1.5rem;
+    background-color: var(--color-wit);
+    border: 1px solid var(--color-lijn);
+    border-radius: var(--radius-kaart);
+  }
+
+  .samenwerkingen h3 {
+    font-size: 1.0625rem;
+  }
+
+  .samenwerkingen p {
+    margin-top: 0.375rem;
+    font-size: 0.9375rem;
+    color: var(--color-ink-mist);
+  }
+
+  @media (min-width: 640px) {
+    .samenwerkingen {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 1000px) {
+    .samenwerkingen {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .bezoek-grid {
+    display: grid;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .feiten {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 2.5rem 0 0;
+  }
+
+  .feiten dt {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-ink-mist);
+  }
+
+  .feiten dd {
+    margin: 0.375rem 0 0;
+    color: var(--color-ink);
+    font-size: 1rem;
+  }
+
+  .tijdregel {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-block: 0.125rem;
+  }
+
+  .tijdregel span:last-child {
+    color: var(--color-ink-mist);
+  }
+
+  .bezoek-knop {
+    margin-top: 2rem;
+  }
+
+  .terras-foto {
+    margin: 0;
+  }
+
+  .terras-foto img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-kaart);
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .terras-foto figcaption {
+    margin-top: 0.875rem;
+    font-size: 0.8125rem;
+    color: var(--color-ink-mist);
+  }
+
+  @media (min-width: 900px) {
+    .bezoek-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+  }
+
+  .faq-wrap {
+    margin-top: 2.5rem;
+    max-width: 44rem;
+  }
+</style>

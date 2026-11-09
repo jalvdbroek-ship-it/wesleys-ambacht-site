@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+---
+
+<BaseLayout
+  title="Pagina niet gevonden — Wesley’s Ambacht"
+  description="Deze pagina bestaat niet. Ga terug naar de homepage of neem contact op."
+>
+  <section class="fout">
+    <div class="rail fout-inhoud">
+      <p class="eyebrow">Foutmelding 404</p>
+      <h1>Deze pagina staat niet op de kaart</h1>
+      <p class="lead">
+        De link die je volgde klopt niet. Ga terug naar de homepage, bekijk de
+        Ambachtswinkel of vraag direct een offerte aan.
+      </p>
+      <div class="fout-knoppen">
+        <a href="/" class="knop knop-haven">Naar de homepage</a>
+        <a href="/ambachtswinkel" class="knop knop-outline">De Ambachtswinkel</a>
+        <a href={`tel:${site.phoneHref}`} class="knop knop-outline">Bel {site.phone}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .fout {
+    background-color: var(--color-wit);
+  }
+
+  .fout-inhoud {
+    padding-block: 5rem 6rem;
+  }
+
+  .fout h1 {
+    font-size: var(--text-display-sm);
+    margin-top: 0.75rem;
+    max-width: 20ch;
+  }
+
+  .fout .lead {
+    margin-top: 1.25rem;
+  }
+
+  .fout-knoppen {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2.25rem;
+  }
+</style>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Wesley's Ambacht — website in HTML</title>
+  <style>
+    body { background: #ffffff; color: #133048; font-family: 'Figtree', ui-sans-serif, system-ui, sans-serif;
+      line-height: 1.7; margin: 0; padding: 3rem 1.5rem; }
+    main { max-width: 44rem; margin: 0 auto; }
+    h1 { font-family: inherit; font-weight: 800; font-size: 2rem; letter-spacing: -0.025em; }
+    p { color: #4b6278; }
+    ul { list-style: none; padding: 0; }
+    li { border-top: 1px solid #dfe6eb; padding: 0.875rem 0;
+      display: flex; justify-content: space-between; gap: 1rem; }
+    a { color: #007176; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    span { color: #4b6278; font-size: 0.875rem; }
+    code { color: #006067; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Wesley's Ambacht — de website in HTML</h1>
+    <p>
+      De vijf paginas van de website, elk als zelfstandig HTML-bestand. De CSS staat
+      inline, de afbeeldingen verwijzen naar <code>../../public/images/</code> in de
+      projectmap. Open een bestand om de pagina te zien, precies zoals hij nu is.
+    </p>
+    <ul>
+      <li><a href="index.html">Home</a> <span>95158 bytes</span></li>
+      <li><a href="ambachtswinkel.html">Ambachtswinkel</a> <span>84026 bytes</span></li>
+      <li><a href="catering.html">Catering</a> <span>96742 bytes</span></li>
+      <li><a href="vergaderen.html">Vergaderen</a> <span>76986 bytes</span></li>
+      <li><a href="contact.html">Contact</a> <span>75030 bytes</span></li>
+      <li><a href="404.html">Niet gevonden</a> <span>61198 bytes</span></li>
+    </ul>
+    <p>
+      De broncode van de site zelf (Astro, Tailwind, TypeScript) staat in de projectmap.
+      Teksten en prijzen staan in <code>src/data/site.ts</code>, de kleuren en typografie
+      in <code>src/styles/global.css</code>.
+    </p>
+  </main>
+</body>
+</html>

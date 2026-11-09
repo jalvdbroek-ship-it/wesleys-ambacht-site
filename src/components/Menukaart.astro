@@ -1,0 +1,66 @@
+---
+/**
+ * Menukaart. De producten zijn echte peers: naam, prijs, wat erin zit.
+ * Wit papier met een haarlijn, de prijs in het signaal.
+ */
+interface Rij {
+  naam: string;
+  prijs?: string;
+  omschrijving: string;
+  details?: string[];
+}
+
+interface Props {
+  rows: Rij[];
+  titel?: string;
+  ondertitel?: string;
+  /** Verbergt de kaartkop. Gebruik dit wanneer de sectie al een titel heeft. */
+  zonderKop?: boolean;
+}
+
+const { rows, titel, ondertitel, zonderKop = false } = Astro.props;
+---
+
+<div class="kaart-menu">
+  {
+    !zonderKop && (
+      <>
+        <h3 class="kaart-menu-titel">{titel}</h3>
+        {ondertitel && <p class="kaart-menu-ondertitel">{ondertitel}</p>}
+      </>
+    )
+  }
+
+  <ul class="kaart-menu-lijst">
+    {
+      rows.map((rij) => (
+        <li class="kaart-menu-item">
+          <div class="kaart-menu-kop">
+            <span class="kaart-menu-naam">{rij.naam}</span>
+            {rij.prijs && <span class="kaart-menu-prijs">{rij.prijs}</span>}
+          </div>
+          <p class="kaart-menu-omschrijving">{rij.omschrijving}</p>
+          {rij.details && rij.details.length > 0 && (
+            <ul class="kaart-menu-details">
+              {rij.details.map((detail) => (
+                <li>{detail}</li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .kaart-menu {
+    max-width: min(40rem, 100%);
+  }
+
+  @media (max-width: 420px) {
+    .kaart-menu {
+      padding: 1.5rem 1.125rem 1.25rem;
+    }
+  }
+</style>

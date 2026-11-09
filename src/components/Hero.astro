@@ -1,0 +1,255 @@
+---
+/**
+ * De held van elke pagina. Links de tekst, rechts een foto in een
+ * cirkel met de ring van de haven eromheen.
+ */
+interface Actie {
+  label: string;
+  href: string;
+  variant?: 'haven' | 'outline';
+}
+
+interface Props {
+  eyebrow: string;
+  titel: string;
+  titelRegel2?: string;
+  lead: string;
+  foto: string;
+  fotoAlt: string;
+  fotoPositie?: string;
+  /** Zoomt in op de foto, zodat je niet de hele foto ziet. 1 is heel de foto. */
+  fotoZoom?: number;
+  checks?: string[];
+  acties?: Actie[];
+  /** Zet een warme gloed over de foto, als bij een barbecue. */
+  gloed?: boolean;
+}
+
+const {
+  eyebrow,
+  titel,
+  titelRegel2,
+  lead,
+  foto,
+  fotoAlt,
+  fotoPositie,
+  fotoZoom = 1,
+  checks,
+  acties,
+  gloed = false,
+} = Astro.props;
+---
+
+<section class="hero">
+  <span class="haven-patroon" aria-hidden="true"></span>
+  <div class="rail hero-rij">
+    <div class="hero-tekst">
+      <p class="eyebrow hero-opin hero-opin-1">{eyebrow}</p>
+      <h1 class="hero-titel hero-opin hero-opin-2">
+        <span class="hero-titel-klein">{titel}</span>
+        {titelRegel2 && <span class="hero-titel-groot">{titelRegel2}</span>}
+      </h1>
+      <p class="hero-lead hero-opin hero-opin-3">{lead}</p>
+      {
+        acties && acties.length > 0 && (
+          <div class="hero-acties hero-opin hero-opin-4">
+            {acties.map((actie) => (
+              <a
+                href={actie.href}
+                class={`knop ${actie.variant === 'outline' ? 'knop-outline' : 'knop-haven'}`}
+              >
+                {actie.label}
+              </a>
+            ))}
+          </div>
+        )
+      }
+      {
+        checks && checks.length > 0 && (
+          <ul class="hero-checks hero-opin hero-opin-4">
+            {checks.map((check) => (
+              <li>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                  <path
+                    d="M3 8.5 6.5 12 13 4.5"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                {check}
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+
+    <div class="hero-foto hero-opin hero-opin-3">
+      <svg class="ring" viewBox="0 0 420 420" aria-hidden="true" focusable="false">
+        <circle cx="210" cy="210" r="208"></circle>
+      </svg>
+      <div class={`hero-foto-lijst${gloed ? ' gloed' : ''}`}>
+        <div class="hero-foto-binnenkant" style={`--foto-zoom: ${fotoZoom}`}>
+          <img
+            src={foto}
+            alt={fotoAlt}
+            width="1417"
+            height="1110"
+            loading="eager"
+            decoding="async"
+            style={fotoPositie ? `object-position: ${fotoPositie}` : undefined}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <span class="waterlijn" aria-hidden="true"></span>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background-color: var(--color-wit);
+  }
+
+  .hero-rij {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 3rem;
+    align-items: center;
+    padding-block: 3.5rem 4rem;
+  }
+
+  .hero-titel {
+    font-size: var(--text-display-sm);
+    font-weight: 600;
+    margin-top: 0.875rem;
+    max-width: 24ch;
+  }
+
+  .hero-titel-klein {
+    display: block;
+  }
+
+  .hero-titel-groot {
+    display: block;
+    font-size: var(--text-display);
+    font-weight: 800;
+  }
+
+  .hero-lead {
+    margin-top: 1.25rem;
+    font-size: clamp(1.0625rem, 1.25vw, 1.1875rem);
+    line-height: 1.65;
+    color: var(--color-ink-mist);
+    max-width: 38rem;
+  }
+
+  .hero-acties {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+
+  .hero-checks {
+    list-style: none;
+    padding: 0;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .hero-checks li {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: 0.9375rem;
+    color: var(--color-ink);
+  }
+
+  .hero-checks svg {
+    color: var(--color-signaal);
+    flex-shrink: 0;
+  }
+
+  .hero-foto {
+    position: relative;
+    width: min(100%, 27rem);
+    justify-self: center;
+  }
+
+  /* De ring om de foto: het teken van de haven.
+     Hij tekent zich bij het openen en komt onder de foto te staan,
+     zodat alleen het deel linksboven zichtbaar blijft. */
+  /* De ring om de foto: het teken van de haven.
+     Hij tekent zich bij het openen en komt onder de foto te staan,
+     zodat alleen het deel linksboven zichtbaar blijft. */
+  .ring {
+    position: absolute;
+    z-index: 0;
+    width: calc(100% + 3.5rem);
+    height: calc(100% + 3.5rem);
+    top: -2.25rem;
+    left: -2.25rem;
+    fill: none;
+    stroke: var(--color-signaal);
+    stroke-width: 1.4;
+    transform: rotate(180deg);
+    pointer-events: none;
+    /* Tailwind zet op elk element een ring-shadow in de tekstkleur.
+       Die zou hier een rechthoek om de ring tekenen. */
+    --tw-ring-shadow: 0 0 0 #0000;
+    box-shadow: none;
+  }
+
+  .ring circle {
+    stroke-dasharray: 1307;
+    stroke-dashoffset: 1307;
+    animation: ring-tekenen 1100ms var(--easing) 220ms forwards;
+  }
+
+  .hero-foto-lijst {
+    position: relative;
+    z-index: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+  }
+
+  /* De zoom staat op een binnenlaag, niet op de foto zelf. Zo blijft
+     de uitsnede los van de foto. */
+  .hero-foto-binnenkant {
+    position: absolute;
+    inset: 0;
+    transform: scale(var(--foto-zoom, 1));
+  }
+
+  .hero-foto-lijst img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ring circle {
+      animation: none;
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .hero-rij {
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 4rem;
+      padding-block: 4.5rem 5.5rem;
+    }
+  }
+</style>

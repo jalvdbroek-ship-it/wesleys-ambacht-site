@@ -1,0 +1,844 @@
+@import "tailwindcss";
+
+/* ================================================================
+   WESLEY'S AMBACHT — DESIGN TOKENS
+   Richting: Havenlicht.
+
+   De site is licht en helder, zoals een etalage aan de buitenhaven
+   op een zomerse dag: wit, zeeblauw als inkt en een teal dat op
+   het signaal van de haven lijkt. Kleurwaarden in OKLCH, contrast
+   gemeten op WCAG 2.2 AA in scripts/contrast.ts.
+   ================================================================ */
+
+@theme {
+  /* ---------- Kleuren ---------- */
+  --color-haven: oklch(0.3 0.055 245); /* diep zeeblauw: koppen, donkere band, knoppen */
+  --color-haven-donker: oklch(0.21 0.045 250); /* voetstuk */
+  --color-haven-mist: oklch(0.955 0.014 225); /* koel paneel, avondlicht */
+  --color-ink: oklch(0.3 0.05 245); /* bodytekst */
+  --color-ink-mist: oklch(0.52 0.03 240); /* inleidingen, bijschriften en metadata */
+  --color-signaal: oklch(0.5 0.085 200); /* haven-teal: prijzen, accent, links */
+  --color-signaal-donker: oklch(0.42 0.08 202); /* hover op het signaal */
+  --color-signaal-licht: oklch(0.78 0.075 195); /* signaal op een donkere vlakte */
+  --color-wit-mist: oklch(0.92 0.012 230); /* tekst op zeeblauw */
+  --color-schuim: oklch(0.968 0.009 225); /* lichte sectieband */
+  --color-wit: oklch(1 0 0);
+  --color-lijn: oklch(0.895 0.012 235); /* haarlijn tussen kaarten */
+  --color-lijn-invoer: oklch(0.62 0.022 235); /* rand van een veld, 3:1 tegen wit */
+  --color-vuurtoren: oklch(0.62 0.13 65); /* het licht van de vuurtoren: sterren */
+
+  /* ---------- Letters ---------- */
+  --font-sans: 'Figtree', ui-sans-serif, system-ui, sans-serif;
+
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.1875rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-display: clamp(2.5rem, 4.2vw, 3.25rem);
+  --text-display-sm: clamp(2rem, 3.6vw, 2.75rem);
+
+  /* ---------- Ruimte ---------- */
+  --spacing-section: 5rem;
+
+  /* ---------- Vorm ---------- */
+  --radius-kaart: 1.25rem;
+  --radius-knop: 999px;
+  --radius-invoer: 0.75rem;
+
+  /* ---------- Tracking ---------- */
+  --tracking-display: -0.025em;
+  --tracking-body: -0.005em;
+}
+
+:root {
+  /* De focusindicator is één behandeling, met een lichte variant op
+     donkere vlakken zodat hij overal zichtbaar blijft. */
+  --focus: var(--color-signaal);
+  --easing: cubic-bezier(0.2, 0, 0.38, 0.9);
+  --duur: 140ms;
+}
+
+/* ================================================================
+   BASIS
+   ================================================================ */
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  background-color: var(--color-wit);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--color-wit);
+  color: var(--color-ink);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: var(--text-base);
+  line-height: 1.7;
+  letter-spacing: var(--tracking-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Op een telefoon staat er een vaste actiebalk onderaan. Die mag
+   de laatste regels van de voetstuk niet bedekken. */
+@media (max-width: 767px) {
+  body {
+    padding-bottom: 4.25rem;
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+  color: var(--color-haven);
+}
+
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background-color: var(--color-signaal);
+  color: var(--color-wit);
+}
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+table {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ================================================================
+   VLAKTEN
+   ================================================================ */
+
+.rail {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .rail {
+    padding-inline: 2.5rem;
+  }
+}
+
+.sectie {
+  padding-block: 3.5rem;
+}
+
+@media (min-width: 768px) {
+  .sectie {
+    padding-block: 5.5rem;
+  }
+}
+
+/* Een lichte band. De kaarten erop staan dan los van de achtergrond. */
+.sectie-schuim {
+  background-color: var(--color-schuim);
+}
+
+/* De haven bij avond: donker zeeblauw met witte tekst.
+   Dit is de enige donkere vlakte van de site. */
+.sectie-haven {
+  background-color: var(--color-haven);
+  color: var(--color-wit);
+}
+
+.sectie-haven h2,
+.sectie-haven h3,
+.sectie-haven h4 {
+  color: var(--color-wit);
+}
+
+.sectie-haven .lead,
+.sectie-haven p {
+  color: var(--color-wit-mist);
+}
+
+.sectie-haven .eyebrow {
+  color: var(--color-signaal-licht);
+}
+
+.sectie-haven :focus-visible {
+  --focus: var(--color-signaal-licht);
+}
+
+/* ================================================================
+   TEKST
+   ================================================================ */
+
+/* De eyebrow is een echte taxonomy: het onderdeel van de pagina.
+   Zonder tracking, in gewone casus, want de letters zijn al klein. */
+.eyebrow {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-signaal);
+}
+
+.lead {
+  font-size: clamp(1.0625rem, 1.25vw, 1.1875rem);
+  line-height: 1.65;
+  color: var(--color-ink-mist);
+  max-width: 44rem;
+}
+
+.tekst-link {
+  color: var(--color-signaal);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: color var(--duur) var(--easing);
+}
+
+.tekst-link:hover {
+  color: var(--color-signaal-donker);
+}
+
+/* ================================================================
+   KNOPPEN
+   ================================================================ */
+
+.knop {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding-inline: 1.5rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-knop);
+  font-family: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.005em;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--duur) var(--easing),
+    border-color var(--duur) var(--easing),
+    color var(--duur) var(--easing);
+}
+
+.knop-haven {
+  background-color: var(--color-haven);
+  color: var(--color-wit);
+}
+
+.knop-haven:hover {
+  background-color: var(--color-haven-donker);
+  color: var(--color-wit);
+}
+
+.knop-signaal {
+  background-color: var(--color-signaal);
+  color: var(--color-wit);
+}
+
+.knop-signaal:hover {
+  background-color: var(--color-signaal-donker);
+  color: var(--color-wit);
+}
+
+.knop-outline {
+  background-color: transparent;
+  color: var(--color-haven);
+  border-color: var(--color-lijn-invoer);
+}
+
+.knop-outline:hover {
+  border-color: var(--color-haven);
+  background-color: rgb(16 48 80 / 0.05);
+}
+
+.knop-wit {
+  background-color: var(--color-wit);
+  color: var(--color-haven);
+}
+
+.knop-wit:hover {
+  background-color: var(--color-schuim);
+  color: var(--color-haven);
+}
+
+/* ================================================================
+   KAARTEN
+   ================================================================ */
+
+.kaart {
+  background-color: var(--color-wit);
+  border: 1px solid var(--color-lijn);
+  border-radius: var(--radius-kaart);
+  padding: 1.75rem;
+}
+
+.kaart-plat {
+  background-color: transparent;
+  border: 0;
+  border-top: 1px solid var(--color-lijn);
+  border-radius: 0;
+  padding: 1.5rem 0 0;
+}
+
+/* ================================================================
+   MENUKAART
+   De prijslijsten blijven menukaarten: naam, prijs, wat erin zit.
+   Wit papier, een teal accent en een rustige hairline.
+   ================================================================ */
+
+.kaart-menu {
+  position: relative;
+  background-color: var(--color-wit);
+  border: 1px solid var(--color-lijn);
+  border-radius: var(--radius-kaart);
+  padding: 2rem 1.75rem 1.5rem;
+  min-width: 0;
+  max-width: 100%;
+  box-shadow:
+    0 1px 2px rgb(16 48 80 / 0.04),
+    0 12px 28px rgb(16 48 80 / 0.06);
+}
+
+.kaart-menu-titel {
+  text-align: center;
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: var(--tracking-display);
+  color: var(--color-haven);
+}
+
+.kaart-menu-ondertitel {
+  text-align: center;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-signaal);
+  margin-top: 0.25rem;
+}
+
+.kaart-menu-lijst {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 0;
+}
+
+.kaart-menu-item {
+  padding-block: 1.125rem;
+  border-bottom: 1px solid var(--color-lijn);
+}
+
+.kaart-menu-item:first-child {
+  padding-top: 0.25rem;
+}
+
+.kaart-menu-item:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.kaart-menu-kop {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+}
+
+.kaart-menu-naam {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--color-haven);
+  min-width: 0;
+}
+
+.kaart-menu-prijs {
+  margin-left: auto;
+  font-weight: 700;
+  color: var(--color-signaal);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.kaart-menu-omschrijving {
+  margin-top: 0.375rem;
+  font-size: 0.9375rem;
+  color: var(--color-ink-mist);
+  max-width: 34rem;
+}
+
+.kaart-menu-details {
+  list-style: none;
+  padding: 0;
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem 0.5rem;
+}
+
+.kaart-menu-details li {
+  font-size: 0.75rem;
+  color: var(--color-ink-mist);
+  background-color: var(--color-schuim);
+  border-radius: 999px;
+  padding: 0.1875rem 0.625rem;
+}
+
+/* ================================================================
+   INVOER
+   ================================================================ */
+
+.veld {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.625rem 0.875rem;
+  background-color: var(--color-wit);
+  color: var(--color-ink);
+  border: 1px solid var(--color-lijn-invoer);
+  border-radius: var(--radius-invoer);
+  font: inherit;
+  font-size: var(--text-sm);
+  transition:
+    border-color var(--duur) var(--easing),
+    box-shadow var(--duur) var(--easing);
+}
+
+.veld::placeholder {
+  color: var(--color-ink-mist);
+}
+
+.veld:hover {
+  border-color: var(--color-ink-mist);
+}
+
+.veld:focus-visible {
+  border-color: var(--color-signaal);
+}
+
+/* ================================================================
+   VEELGESTELDE VRAGEN
+   ================================================================ */
+
+details.samenvatting {
+  border-bottom: 1px solid var(--color-lijn);
+}
+
+details.samenvatting summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.125rem 0;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--color-haven);
+  transition: color var(--duur) var(--easing);
+}
+
+details.samenvatting summary:hover {
+  color: var(--color-signaal);
+}
+
+details.samenvatting summary::-webkit-details-marker {
+  display: none;
+}
+
+details.samenvatting summary::marker {
+  content: '';
+}
+
+details.samenvatting[open] summary .pijl {
+  transform: rotate(45deg);
+}
+
+.pijl {
+  transition: transform 180ms var(--easing);
+  flex-shrink: 0;
+  margin-top: 0.3125rem;
+  color: var(--color-signaal);
+}
+
+/* ================================================================
+   DE HAVEN
+   Het eigen beeldmerk van de site: de cirkel. Een ring, een
+   meerkring en een golfslag horen bij een haven, en de cirkel is
+   ook de vorm van de referentie die we volgen.
+   ================================================================ */
+/* De ring die om de held en de fotokaarten staat. */
+.boog {
+  position: absolute;
+  border: 2px solid var(--color-signaal);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Het lijnwerk van de haven op de achtergrond: golf, vis,
+   paal en kompas. */
+.haven-patroon {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.07;
+}
+
+/* Op een telefoon is het patroon dichter bij. Daar moet het nog
+   rustiger, anders wordt het druk naast de tekst. */
+@media (max-width: 767px) {
+  .haven-patroon {
+    opacity: 0.045;
+  }
+}
+
+@supports (mask-image: linear-gradient(#000, #000)) {
+  .haven-patroon {
+    background-color: var(--color-signaal);
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 158c10-8 20-8 30 0s20 8 30 0 20-8 30 0'/%3E%3Cpath d='M12 176c10-8 20-8 30 0s20 8 30 0 20-8 30 0'/%3E%3Cpath d='M142 28c13 0 23 9 23 20s-10 20-23 20-23-9-23-20 10-20 23-20z'/%3E%3Cpath d='M165 48l12-9v18z'/%3E%3Ccircle cx='132' cy='41' r='2'/%3E%3Ccircle cx='46' cy='46' r='19'/%3E%3Cpath d='M46 27v38M27 46h38M33 33l26 26M59 33L33 59'/%3E%3Cpath d='M150 120v32'/%3E%3Ccircle cx='150' cy='114' r='4.5'/%3E%3Cpath d='M137 128h26'/%3E%3Cpath d='M150 152c0 9-7 15-15 15s-15-6-15-15'/%3E%3Cpath d='M150 152c0 9 7 15 15 15s15-6 15-15'/%3E%3C/g%3E%3C/svg%3E");
+    mask-repeat: repeat;
+    mask-size: 200px 200px;
+  }
+}
+
+/* Een foto in een cirkel, zoals de productkaarten van de referentie. */
+.cirkel-foto img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+/* ================================================================
+   HET ROOSTER
+
+   Het roosterpatroon is het teken van de barbecue. Twee families
+   diagonale lijnen, net als het ijzeren rooster boven het vuur.
+   Het staat alleen als sfeer, nooit als foto.
+   ================================================================ */
+
+.rooster {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.rooster::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  inset: -20%;
+  pointer-events: none;
+  opacity: 0.09;
+  background-image:
+    repeating-linear-gradient(
+      58deg,
+      var(--color-haven) 0,
+      var(--color-haven) 1px,
+      transparent 1px,
+      transparent 16px
+    ),
+    repeating-linear-gradient(
+      -58deg,
+      var(--color-haven) 0,
+      var(--color-haven) 1px,
+      transparent 1px,
+      transparent 16px
+    );
+  /* Het patroon verdwijnt in het midden, zodat het de tekst niet
+     in de weg zit. */
+  mask-image: radial-gradient(ellipse at 50% 42%, transparent 18%, #000 68%);
+}
+
+.rooster > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* De warme gloed van het vuur, als een laag over een foto. */
+.gloed {
+  position: relative;
+  isolation: isolate;
+}
+
+.gloed::after {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at 50% 84%,
+    rgb(232 132 46 / 0.4) 0%,
+    rgb(232 132 46 / 0.16) 32%,
+    transparent 62%
+  );
+}
+
+/* ================================================================
+   BEWEGING
+   Eén georkestreeerd moment: de held. De rest is feedback op
+   een handeling.
+   ================================================================ */
+
+/* Eén georkestreeerd moment: de held.
+   Alleen een beweging, geen vloei: de tekst blijft altijd leesbaar,
+   ook als een programma de animaties uitzet. */
+@keyframes rij-op {
+  from {
+    transform: translateY(12px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.hero-opin {
+  animation: rij-op 460ms var(--easing) both;
+}
+
+.hero-opin-1 {
+  animation-delay: 40ms;
+}
+
+.hero-opin-2 {
+  animation-delay: 90ms;
+}
+
+.hero-opin-3 {
+  animation-delay: 140ms;
+}
+
+.hero-opin-4 {
+  animation-delay: 190ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-opin {
+    animation: none;
+  }
+}
+
+/* ================================================================
+   BEWEGING
+
+   Vier momenten, overal teruggekeerd tot rust:
+
+   1. De held: de ring van de haven tekent zich, het beeld drijft
+      langzaam en de tekst komt omhoog. Eén moment, bij het openen.
+   2. De waterlijn onder de held verschuift, als een getij.
+   3. De kop condenseert zodra je scrolt.
+   4. De accentlijn boven een sectiekop groeit wanneer de sectie
+      in beeld komt.
+
+   Daarnaast reageren kaarten, menurijen en knoppen op hover.
+
+   Er wordt nooit tekst verborgen: alleen lijnen, ringen en
+   beelden bewegen. Zo blijft de site leesbaar zonder JavaScript
+   en bij het printen.
+   ================================================================ */
+/* --- 1. De ring van de haven tekent zich --- */
+@keyframes ring-tekenen {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* --- 2. De waterlijn --- */
+/* De twee golven lopen niet gelijk. De voorste gaat langzaam, de
+   achterste twee keer zo snel. Dat verschil geeft het water diepte. */
+@keyframes getij-voor {
+  to {
+    background-position-x: -16rem;
+  }
+}
+
+@keyframes getij-achter {
+  to {
+    background-position-x: -16rem;
+  }
+}
+
+/* --- 4. De accentlijn groeit --- */
+@keyframes lijn-groeit {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* De waterlijn: twee golven in het signaal, naadloos in zichzelf.
+   De voorste golf is een brede, rustige lijn en loopt langzaam.
+   De achterste is een kortere, fijnere lijn en loopt twee keer
+   zo snel. */
+.waterlijn {
+  position: absolute;
+  z-index: 0;
+  inset: auto 0 0 0;
+  height: 2.5rem;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='40' viewBox='0 0 256 40'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M0 26q32-11 64 0t64 0 64 0 64 0' stroke='%234fb3b6' stroke-width='1.2'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 16rem 2.5rem;
+  background-position: 0 0;
+  opacity: 0.6;
+  animation: getij-achter 9s linear infinite;
+}
+
+/* De voorste golf is een eigen laag, zodat hij een eigen vorm en
+   een eigen snelheid kan hebben. */
+.waterlijn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='40' viewBox='0 0 256 40'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M0 22q32-13 64 0t64 0 64 0 64 0' stroke='%23007176' stroke-width='1.6'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-size: 16rem 2.5rem;
+  background-position: 0 0;
+  animation: getij-voor 27s linear infinite;
+}
+
+/* De accentlijn boven een sectiekop. Zonder JavaScript moet hij
+   meteen op zijn plek staan, dus de verborgen toestand hangt aan
+   de .js-klasse. */
+.accentlijn {
+  display: block;
+  width: 2.75rem;
+  height: 3px;
+  margin-bottom: 1rem;
+  background-color: var(--color-signaal);
+  border-radius: 2px;
+  transform-origin: left center;
+}
+
+.js .accentlijn {
+  transform: scaleX(0);
+}
+
+.js .accentlijn.is-zichtbaar {
+  transform: scaleX(1);
+  transition: transform 520ms var(--easing);
+}
+
+/* --- 3. De kop condenseert bij het scrollen --- */
+.kop {
+  transition:
+    box-shadow 240ms var(--easing),
+    border-color 240ms var(--easing);
+}
+
+.kop.is-compact {
+  box-shadow: 0 6px 20px rgb(16 48 80 / 0.07);
+  border-bottom-color: transparent;
+}
+
+/* --- Een foto in een kaart komt iets dichterbij --- */
+.kaart-foto {
+  overflow: hidden;
+}
+
+.kaart-foto img {
+  transition: transform 620ms var(--easing);
+}
+
+.kaart:hover .kaart-foto img,
+.kaart-foto:hover img {
+  transform: scale(1.05);
+}
+
+/* --- Links in een kaart: de onderstreping tekent zich --- */
+.kaart-link {
+  position: relative;
+  display: inline-block;
+  font-weight: 600;
+  color: var(--color-signaal);
+  text-decoration: none;
+}
+
+.kaart-link::after {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  bottom: -3px;
+  width: 0;
+  height: 1px;
+  background-color: currentColor;
+  transition: width 320ms var(--easing);
+}
+
+.kaart:hover .kaart-link::after,
+.kaart-link:hover::after {
+  width: 100%;
+}
+
+/* De prijs in een menukaart schuift op zodra je de regel aankaart. */
+.kaart-menu-item {
+  position: relative;
+  padding-top: 0.5rem;
+}
+
+.kaart-menu-item::after {
+  content: '';
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0;
+  width: 0;
+  height: 1px;
+  background-color: var(--color-signaal);
+  transition: width 380ms var(--easing);
+}
+
+.kaart-menu-item:hover::after {
+  width: 100%;
+}
+
+.kaart-menu-prijs {
+  transition: transform 280ms var(--easing);
+}
+
+.kaart-menu-item:hover .kaart-menu-prijs {
+  transform: translateX(4px);
+}
+
+/* Geen enkele beweging als de lezer dat wil. */
+@media (prefers-reduced-motion: reduce) {
+  .waterlijn,
+  .waterlijn::before,
+  .accentlijn,
+  .kaart-menu-item::after,
+  .kaart-menu-prijs,
+  .kaart-foto img,
+  .kaart-link::after {
+    animation: none;
+    transition: none;
+  }
+
+  .js .accentlijn {
+    transform: scaleX(1);
+  }
+
+  .kaart-menu-item::after {
+    width: 0;
+  }
+}

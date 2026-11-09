@@ -1,0 +1,44 @@
+---
+/**
+ * Faq-lijst. Details en summary, dus werkt met het toetsenbord
+ * zonder extra JavaScript.
+ */
+import { faqs } from '../data/site';
+---
+
+<div class="faq">
+  {
+    faqs.map((faq) => (
+      <details class="samenvatting">
+        <summary>
+          <span>{faq.vraag}</span>
+          <span class="pijl" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path
+                d="M8 2v12M2 8h12"
+                stroke="currentColor"
+                stroke-width="1.6"
+                stroke-linecap="round"
+              />
+            </svg>
+          </span>
+        </summary>
+        <p class="faq-antwoord">{faq.antwoord}</p>
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  .faq {
+    border-top: 1px solid var(--color-lijn);
+  }
+
+  .faq-antwoord {
+    padding-bottom: 1.5rem;
+    max-width: 44rem;
+    color: var(--color-ink-mist);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+</style>

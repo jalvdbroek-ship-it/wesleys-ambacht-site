@@ -1,0 +1,53 @@
+---
+/**
+ * Sluitmelding. De winkel is tijdelijk gesloten, daarna weer open.
+ * Staat boven de header zodat hij niets wegdrukt.
+ */
+import { site } from '../data/site';
+
+const { sluiting } = site;
+---
+
+<aside class="sluiting" aria-label="Sluitmelding">
+  <div class="rail sluiting-rij">
+    <p>
+      <strong>Van {sluiting.van} t/m {sluiting.tot} zijn we gesloten.</strong>
+      Vanaf {sluiting.weerOpen} staan we weer voor je klaar.
+    </p>
+    <a href="/contact" class="sluiting-link">Een offerte aanvragen</a>
+  </div>
+</aside>
+
+<style>
+  .sluiting {
+    background-color: var(--color-signaal);
+    color: var(--color-wit);
+  }
+
+  .sluiting-rij {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.375rem 1.5rem;
+    padding-block: 0.5rem;
+    font-size: 0.8125rem;
+    line-height: 1.45;
+  }
+
+  .sluiting strong {
+    font-weight: 700;
+  }
+
+  .sluiting-link {
+    color: var(--color-wit);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    white-space: nowrap;
+  }
+
+  .sluiting-link:hover {
+    text-decoration-thickness: 2px;
+  }
+</style>

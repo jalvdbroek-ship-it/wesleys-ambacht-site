@@ -1,0 +1,275 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import SectieKop from '../components/SectieKop.astro';
+import OfferteForm from '../components/OfferteForm.astro';
+import { site, stappen } from '../data/site';
+
+const beloftenContact = [
+  {
+    titel: 'Binnen één werkdag een antwoord',
+    tekst: 'Je belt of mailt, en dezelfde of de volgende werkdag hoor je van ons terug.',
+  },
+  {
+    titel: 'Een offerte op maat',
+    tekst: 'Met wat we doen, in welke volgorde en wat het kost. Zonder verrassingen achteraf.',
+  },
+  {
+    titel: 'Geen verrassingen',
+    tekst: 'Alles is inclusief btw. Wat er niet bij zit, rekenen wij apart af en zeggen het vooraf.',
+  },
+];
+---
+
+<BaseLayout
+  title="Contact — offerte aanvragen bij Wesley’s Ambacht"
+  description="Vraag een offerte aan voor catering, broodjes, borrelplanken of een vergaderruimte in Stellendam. Bel, mail of WhatsApp Wesley’s Ambacht."
+  ogImage="/images/linkkaart.png"
+>
+  <Hero
+    eyebrow="Contact"
+    titel="Vertel ons wat je viert"
+    lead="Voor catering, een borrel, broodjes of de vergaderruimte. Bel, mail of stuur een aanvraag via het formulier. We reageren binnen één werkdag."
+    foto="/images/haven-avond.jpg"
+    fotoAlt="Vissersboten aan de avondhaven van Stellendam, met de kustverlichting aan."
+    fotoPositie="50% 45%"
+    checks={[
+      'Antwoord binnen één werkdag',
+      'Offerte op maat, inclusief btw',
+      'Geen verrassingen achteraf',
+    ]}
+  />
+
+  <section class="sectie sectie-schuim">
+    <div class="rail">
+      <ul class="contact-beloften">
+        {
+          beloftenContact.map((belofte) => (
+            <li>
+              <h2>{belofte.titel}</h2>
+              <p>{belofte.tekst}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="sectie">
+    <div class="rail contact-grid">
+      <div class="">
+        <SectieKop eyebrow="Aanvraag" title="Offerte aanvragen" />
+        <div class="form-wrap">
+          <OfferteForm />
+        </div>
+      </div>
+
+      <div class="contact-info">
+        <div class="info-blok">
+          <h2>Telefoon</h2>
+          <a href={`tel:${site.phoneHref}`} class="groot-link">{site.phone}</a>
+        </div>
+
+        <div class="info-blok">
+          <h2>E-mail</h2>
+          <a href={`mailto:${site.email}`} class="groot-link">{site.email}</a>
+        </div>
+
+        <div class="info-blok">
+          <h2>WhatsApp</h2>
+          <a href={site.whatsapp} target="_blank" rel="noopener" class="groot-link">
+            Stuur een bericht
+          </a>
+        </div>
+
+        <div class="info-blok">
+          <h2>Adres</h2>
+          <address>
+            <a href={site.maps} target="_blank" rel="noopener" class="groot-link">
+              {site.address.straat}<br />
+              {site.address.postcode} {site.address.plaats}
+            </a>
+          </address>
+        </div>
+
+        <div class="info-blok">
+          <h2>Openingstijden</h2>
+          <ul class="tijden">
+            {
+              site.openingstijden.map((rij) => (
+                <li>
+                  <span>{rij.dag}</span>
+                  <span>{rij.tijd}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sectie sectie-schuim">
+    <div class="rail">
+      <SectieKop eyebrow="Zo gaat het" title="Wat er daarna gebeurt" />
+      <ol class="stappen">
+        {
+          stappen.map((stap) => (
+            <li class="stap">
+              <span class="stap-nummer">{stap.stap}</span>
+              <h3>{stap.titel}</h3>
+              <p>{stap.tekst}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .contact-grid {
+    display: grid;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .form-wrap {
+    margin-top: 2rem;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem;
+    background-color: var(--color-wit);
+    border: 1px solid var(--color-lijn);
+    border-radius: var(--radius-kaart);
+  }
+
+  .info-blok h2 {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-ink-mist);
+  }
+
+  .groot-link {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    color: var(--color-haven);
+    text-decoration: none;
+    transition: color var(--duur) var(--easing);
+  }
+
+  .groot-link:hover {
+    color: var(--color-signaal);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  address {
+    font-style: normal;
+  }
+
+  .tijden {
+    list-style: none;
+    padding: 0;
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .tijden li {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    font-size: 0.9375rem;
+    color: var(--color-ink-mist);
+  }
+
+  .tijden li span:last-child {
+    color: var(--color-ink);
+  }
+
+  @media (min-width: 900px) {
+    .contact-grid {
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 4rem;
+    }
+  }
+
+  .stappen {
+    display: grid;
+    gap: 2rem;
+    margin-top: 3rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .contact-beloften {
+    display: grid;
+    gap: 2rem;
+    list-style: none;
+    padding: 0;
+  }
+
+  .contact-beloften h2 {
+    font-size: 1.125rem;
+    color: var(--color-haven);
+  }
+
+  .contact-beloften p {
+    margin-top: 0.5rem;
+    font-size: 0.9375rem;
+    color: var(--color-ink-mist);
+  }
+
+  @media (min-width: 800px) {
+    .contact-beloften {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+  }
+
+  .stap {
+    border-top: 1px solid var(--color-lijn);
+    padding-top: 1.25rem;
+  }
+
+  .stap-nummer {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background-color: var(--color-signaal);
+    color: var(--color-wit);
+    font-size: 0.8125rem;
+    font-weight: 700;
+  }
+
+  .stap h3 {
+    font-size: 1.25rem;
+    margin-top: 1rem;
+  }
+
+  .stap p {
+    margin-top: 0.5rem;
+    color: var(--color-ink-mist);
+    font-size: 0.9375rem;
+  }
+
+  @media (min-width: 800px) {
+    .stappen {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+  }
+</style>

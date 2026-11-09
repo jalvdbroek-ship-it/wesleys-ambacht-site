@@ -1,0 +1,232 @@
+---
+/**
+ * Offerteaanvraag.
+ *
+ * Dit is een demonstratie. Er wordt niets verstuurd en niets opgeslagen:
+ * het formulier valideert alleen wat je invult en laat je daarna zien
+ * wat er zou worden verstuurd. Een werkelijke ontvangst komt pas
+ * als er een formulierprovider en een mailbox zijn ingericht en getest.
+ */
+const onderwerpen = [
+  'Catering op locatie (BBQ, buffet of hapjes)',
+  'Broodjeslunch',
+  'Borrelplank of vleespakket',
+  'Vergaderruimte met uitzicht',
+  'Feest of partij in de Ambachtswinkel',
+  'Ik weet het nog niet',
+];
+---
+
+<form class="offerte-form" id="offerte-form" novalidate>
+  <div class="form-rij">
+    <label class="form-veld">
+      <span class="form-label">Naam</span>
+      <input class="veld" type="text" name="naam" required autocomplete="name" />
+    </label>
+    <label class="form-veld">
+      <span class="form-label">Telefoon</span>
+      <input class="veld" type="tel" name="telefoon" required autocomplete="tel" />
+    </label>
+  </div>
+
+  <div class="form-rij">
+    <label class="form-veld">
+      <span class="form-label">E-mail</span>
+      <input class="veld" type="email" name="email" required autocomplete="email" />
+    </label>
+    <label class="form-veld">
+      <span class="form-label">Datum of gelegenheid</span>
+      <input class="veld" type="text" name="datum" placeholder="Bijvoorbeeld 12 juni" />
+    </label>
+  </div>
+
+  <label class="form-veld">
+    <span class="form-label">Waar wil je mee beginnen?</span>
+    <select class="veld" name="onderwerp" required>
+      <option value="">Kies een optie</option>
+      {onderwerpen.map((onderwerp) => <option value={onderwerp}>{onderwerp}</option>)}
+    </select>
+  </label>
+
+  <label class="form-veld">
+    <span class="form-label">Aantal personen</span>
+    <input class="veld" type="number" name="personen" min="1" step="1" placeholder="Bijvoorbeeld 25" />
+  </label>
+
+  <label class="form-veld">
+    <span class="form-label">Bericht</span>
+    <textarea
+      class="veld"
+      name="bericht"
+      rows="5"
+      required
+      placeholder="Wat staat er te gebeuren, en waar zin je in?"></textarea>
+  </label>
+
+  <div class="form-actie">
+    <button type="submit" class="knop knop-haven">Controleer je aanvraag</button>
+    <p class="form-hint">
+      Dit formulier is een demonstratie. Er wordt niets verstuurd en niets opgeslagen.
+    </p>
+  </div>
+
+  <div class="form-uitkomst" id="form-uitkomst" role="status" hidden>
+    <h3>Dit zou eruit gaan</h3>
+    <dl class="form-overzicht">
+      <div><dt>Naam</dt><dd data-veld="naam"></dd></div>
+      <div><dt>Telefoon</dt><dd data-veld="telefoon"></dd></div>
+      <div><dt>E-mail</dt><dd data-veld="email"></dd></div>
+      <div><dt>Waar wil je mee beginnen?</dt><dd data-veld="onderwerp"></dd></div>
+      <div><dt>Aantal personen</dt><dd data-veld="personen"></dd></div>
+      <div class="is-breed"><dt>Bericht</dt><dd data-veld="bericht"></dd></div>
+    </dl>
+    <p class="form-bevestiging">
+      Er is niets verstuurd. Er is ook niets opgeslagen: je gegevens staan alleen in dit
+      venster en verdwijnen zodra je de pagina verlaat. Een echte aanvraag versturen
+      kan zodra er een mailbox en een formulierprovider zijn ingericht.
+    </p>
+    <button type="button" class="tekst-link knop-plain" id="form-opnieuw">
+      Wijzig je aanvraag
+    </button>
+  </div>
+</form>
+
+<script>
+  const form = document.getElementById('offerte-form') as HTMLFormElement | null;
+  const uitkomst = document.getElementById('form-uitkomst');
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+
+    const data = new FormData(form);
+    for (const veld of ['naam', 'telefoon', 'email', 'onderwerp', 'personen', 'bericht']) {
+      const doel = uitkomst?.querySelector(`[data-veld="${veld}"]`);
+      if (doel) doel.textContent = String(data.get(veld) ?? '').trim() || 'niet ingevuld';
+    }
+    if (uitkomst) uitkomst.hidden = false;
+    form.querySelectorAll('input, select, textarea').forEach((el) => {
+      (el as HTMLInputElement).disabled = true;
+    });
+    (form.querySelector('button[type="submit"]') as HTMLButtonElement).hidden = true;
+    uitkomst?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+
+  document.getElementById('form-opnieuw')?.addEventListener('click', () => {
+    if (!form) return;
+    form.reset();
+    form.querySelectorAll('input, select, textarea').forEach((el) => {
+      (el as HTMLInputElement).disabled = false;
+    });
+    (form.querySelector('button[type="submit"]') as HTMLButtonElement).hidden = false;
+    if (uitkomst) uitkomst.hidden = true;
+    form.querySelector<HTMLInputElement>('input[name="naam"]')?.focus();
+  });
+</script>
+
+<style>
+  .offerte-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.125rem;
+  }
+
+  .form-rij {
+    display: grid;
+    gap: 1.125rem;
+  }
+
+  .form-veld {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4375rem;
+  }
+
+  .form-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-haven);
+  }
+
+  .form-actie {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.25rem;
+  }
+
+  .form-hint {
+    font-size: 0.8125rem;
+    color: var(--color-ink-mist);
+    max-width: 22rem;
+  }
+
+  .form-uitkomst {
+    margin-top: 0.5rem;
+    padding: 1.75rem;
+    background-color: var(--color-schuim);
+    border: 1px solid var(--color-lijn);
+    border-radius: var(--radius-kaart);
+  }
+
+  .form-uitkomst h3 {
+    font-size: 1.125rem;
+    margin-bottom: 1rem;
+  }
+
+  .form-overzicht {
+    display: grid;
+    gap: 0.75rem 2rem;
+    margin: 0 0 1.25rem;
+  }
+
+  .form-overzicht > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .form-overzicht .is-breed {
+    grid-column: 1 / -1;
+  }
+
+  .form-overzicht dt {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-signaal);
+  }
+
+  .form-overzicht dd {
+    margin: 0;
+    color: var(--color-ink);
+    font-size: 0.9375rem;
+    white-space: pre-wrap;
+  }
+
+  .form-bevestiging {
+    font-size: 0.9375rem;
+    color: var(--color-ink-mist);
+    max-width: 46rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-lijn);
+  }
+
+  .knop-plain {
+    margin-top: 1rem;
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    font-size: 0.875rem;
+    cursor: pointer;
+  }
+
+  @media (min-width: 640px) {
+    .form-rij {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

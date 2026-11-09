@@ -1,0 +1,61 @@
+# Website van Wesley's Ambacht
+
+Dit pakket bevat de website van Wesley's Ambacht in twee vormen.
+
+## 1. Gebruiken zonder installatie
+
+Open `website/index.html`. De vijf pagina's werken meteen: de CSS staat in
+elk bestand en alle afbeeldingen staan in `website/media/`. Je kunt dit
+foldertje ook op een webserver zetten, dan is de site direct online.
+
+| Bestand | Pagina |
+| --- | --- |
+| `website/index.html` | Home |
+| `website/ambachtswinkel.html` | Ambachtswinkel |
+| `website/catering.html` | Catering |
+| `website/vergaderen.html` | Vergaderen |
+| `website/contact.html` | Contact |
+| `website/404.html` | Pagina niet gevonden |
+
+De media staat in `website/media/images` en `website/media/brochures`. De
+brochures zijn de originele PDF's van Wesley's Ambacht.
+
+## 2. Opnieuw bouwen vanuit de bron
+
+In `bron/` staat de volledige broncode: Astro 5, Tailwind v4 en TypeScript.
+
+```bash
+cd bron
+npm install
+npm run build
+```
+
+De gebouwde site komt in `bron/dist/`. `npm run dev` start de ontwikkelserver.
+
+Wat er waar staat:
+
+| Pad | Inhoud |
+| --- | --- |
+| `bron/src/pages/` | De vijf pagina's plus de 404 |
+| `bron/src/components/` | Header, voetstuk, held, menukaart, formulier |
+| `bron/src/styles/global.css` | Kleuren, typografie en alle componentklassen |
+| `bron/src/data/site.ts` | Alle teksten, prijzen en producten |
+| `bron/public/images/` | Afbeeldingen en het beeldmerk |
+| `bron/public/brochures/` | De brochure-PDF's |
+| `bron/scripts/` | Scripts voor contrast, browsercontrole en het pakket |
+| `DESIGN.md` | Het ontwerp: kleuren, typografie, vorm en beweging |
+| `README.md` | Alles over de scripts en de open punten |
+
+## Belangrijk
+
+- De kleurwaarden staan als OKLCH in `bron/src/styles/global.css`. Verandert
+  er een kleur, draai dan `npm run contrast` in `bron/`.
+- Het beeldmerk is `bron/public/images/merk.png`. Opnieuw snijden gaat met
+  `npm run merk:snijden`.
+- Het contactformulier is een demonstratie. Het verzendt en opslaat niets.
+- De beelden van het terras, de barbecueplank en de haven zijn gegenereerd en
+  geven de sfeer weer. Ze zijn geen foto's van de werkelijke locatie of
+  producten.
+
+Controleer vóór livegang de openingstijden, het domein, de rechten op de
+foto's en de formulierontvangst. Zie `DESIGN.md` en `README.md`.

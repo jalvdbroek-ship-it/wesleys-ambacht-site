@@ -1,0 +1,61 @@
+---
+/**
+ * Sectiekop met eyebrow, titel en inleiding.
+ * De eyebrow is een echte taxonomy (het onderdeel), geen decoratie.
+ * Met `titelAccent` komt de tweede helft van de kop in het signaal,
+ * zoals de kop van de referentie.
+ */
+interface Props {
+  eyebrow?: string;
+  title: string;
+  titelAccent?: string;
+  lead?: string;
+  id?: string;
+  align?: 'left' | 'center';
+}
+
+const { eyebrow, title, titelAccent, lead, id, align = 'left' } = Astro.props;
+---
+
+<div class={`sectie-kop${align === 'center' ? ' is-centraal' : ''}`} id={id}>
+  <span class="accentlijn" data-reveal aria-hidden="true"></span>
+  {eyebrow ? <p class="eyebrow">{eyebrow}</p> : null}
+  <h2 class="sectie-titel">
+    {title}
+    {titelAccent ? <><br /><span class="titel-accent">{titelAccent}</span></> : null}
+  </h2>
+  {lead ? <p class="lead">{lead}</p> : null}
+</div>
+
+<style>
+  .sectie-kop {
+    max-width: 46rem;
+  }
+
+  .is-centraal {
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .is-centraal .accentlijn {
+    margin-inline: auto;
+    transform-origin: center;
+  }
+
+  .sectie-titel {
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    margin-top: 0.625rem;
+  }
+
+  .titel-accent {
+    color: var(--color-signaal);
+  }
+
+  .is-centraal .sectie-titel {
+    text-wrap: balance;
+  }
+
+  .lead {
+    margin-top: 1rem;
+  }
+</style>

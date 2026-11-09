@@ -1,0 +1,41 @@
+{
+  "name": "wesleys-ambacht-site",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Wesley's Ambacht — ambachtelijke catering, Ambachtswinkel en vergaderen in Stellendam. Astro 5 + Tailwind v4.",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview --host 0.0.0.0 --allowed-hosts localhost,127.0.0.1,.loca.lt,.ngrok.io,.trycloudflare.com",
+    "check": "astro check",
+    "astro": "astro",
+    "contrast": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/contrast.ts",
+    "verify:ui": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/verify-ui.mts",
+    "handover": "node --experimental-strip-types --disable-warning=ExperimentalWarning scripts/build-handover.mjs",
+    "handover:push": "node --experimental-strip-types --disable-warning=ExperimentalWarning scripts/push-handover.mjs",
+    "slack:msg": "node --experimental-strip-types --disable-warning=ExperimentalWarning scripts/slack-msg.mjs",
+    "site:html": "node scripts/build-site-html.mjs",
+    "site:push": "node scripts/push-site-html.mjs",
+    "site:zip": "node scripts/pack.mjs",
+    "check:html": "node scripts/check-site-html.mjs",
+    "check:pakket": "node scripts/check-pakket.mjs",
+    "shots": "node scripts/shots.mjs",
+    "check:overflow": "node scripts/check-overflow.mjs",
+    "merk:snijden": "node scripts/crop-logo.mjs",
+    "linkkaart": "node scripts/build-linkkaart.mjs",
+    "delen": "bash scripts/delen.sh",
+    "serve": "node scripts/serve-dist.mjs"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@tailwindcss/vite": "^4.0.0",
+    "astro": "^5.0.0",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.6.3"
+  },
+  "overrides": {
+    "vite": "8.3.4"
+  }
+}

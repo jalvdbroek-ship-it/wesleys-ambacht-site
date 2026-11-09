@@ -1,0 +1,894 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import SectieKop from '../components/SectieKop.astro';
+import CtaBlok from '../components/CtaBlok.astro';
+import Menukaart from '../components/Menukaart.astro';
+import HavenBand from '../components/HavenBand.astro';
+import {
+  beloften,
+  overOns,
+  reviews,
+  instagramPosts,
+  site,
+  stappen,
+  visKaart,
+  vuurEnKade,
+} from '../data/site';
+---
+
+<BaseLayout>
+  <!-- ============ HERO ============ -->
+  <Hero
+    eyebrow="Ambachtswinkel in Stellendam"
+    titel="Verse vis van de vismijn."
+    titelRegel2="Vlees van het vuur."
+    lead="De Ambachtswinkel staat op de buitenhaven van Stellendam, naast de vismijn. Je haalt er verse vis direct van de boot, ambachtelijke producten van Wesley en Marjoleine, en eet ze meteen op het terras met uitzicht over het water."
+    foto="/images/zonsondergang-haven.jpg"
+    fotoAlt="De zon gaat onder boven de buitenhaven van Stellendam, met het licht op het water."
+    fotoPositie="72% 58%"
+    fotoZoom={1.45}
+    checks={[
+      'Verse vis elke week uit de vismijn',
+      'Gratis parkeerplaats bij de haven',
+      'Offerte binnen één werkdag',
+    ]}
+    acties={[
+      { label: 'Bekijk de winkel', href: '/ambachtswinkel' },
+      { label: 'Catering op locatie', href: '/catering', variant: 'outline' },
+    ]}
+  />
+
+  <!-- ============ VUUR EN KADE ============ -->
+  <section class="sectie">
+    <div class="rail">
+      <SectieKop
+        eyebrow={vuurEnKade.eyebrow}
+        title={vuurEnKade.titel}
+        lead={vuurEnKade.tekst}
+        align="center"
+      />
+
+      <div class="momenten">
+        {
+          vuurEnKade.momenten.map((moment) => (
+            <article class="moment">
+              <span class="moment-label">{moment.label}</span>
+              <h3>{moment.titel}</h3>
+              <p>{moment.tekst}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ BREDE BAND ============ -->
+  <HavenBand
+    afbeelding="/images/zonsondergang-vissershaven.jpg"
+    alt="Vissersboten aan de haven van Stellendam bij zonsondergang, met de zon in het water."
+    zin="De zon gaat onder achter de vismijn. Dan begint het eten."
+    onderschrift="De buitenhaven van Stellendam, waar de Ambachtswinkel staat."
+  />
+
+  <!-- ============ DRIE GELEGENHEDEN ============ -->
+  <section class="sectie">
+    <div class="rail">
+      <SectieKop
+        eyebrow="Wat we doen"
+        title="Drie gelegenheden"
+        titelAccent="bij ons aan de haven"
+        lead="Je komt langs voor een afhaalmaaltijd, je viert er iets, of je zit er een dagdeel met je team. Voor alle drie kom je naar dezelfde plek: de buitenhaven van Stellendam."
+        align="center"
+      />
+
+      <div class="banen">
+        <a href="/ambachtswinkel" class="baan">
+          <div class="baan-foto">
+            <img
+              src="/images/havenplein-terras.jpg"
+              alt="Het terras van de Ambachtswinkel aan de buitenhaven van Stellendam."
+              width="1417"
+              height="1110"
+              loading="lazy"
+              decoding="async"
+              style="object-position: 45% 55%"
+            />
+          </div>
+          <div class="baan-tekst">
+            <span class="baan-label">Even langs</span>
+            <h3>Ambachtswinkel</h3>
+            <p>Verse vis, afhaalmaaltijden, patat en broodjes. En een terras aan het water.</p>
+            <span class="baan-link">Naar de winkel</span>
+          </div>
+        </a>
+
+        <a href="/catering" class="baan">
+          <div class="baan-foto">
+            <img
+              src="/images/barbecueplank.jpg"
+              alt="Een barbecueplank met worst, hamburger, loaded fries en saus."
+              width="1448"
+              height="1086"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="baan-tekst">
+            <span class="baan-label">Iets te vieren</span>
+            <h3>Catering</h3>
+            <p>BBQ, buffetten, hapjes, walking diner en broodjes. Wij komen naar je toe.</p>
+            <span class="baan-link">Naar het cateringaanbod</span>
+          </div>
+        </a>
+
+        <a href="/vergaderen" class="baan">
+          <div class="baan-foto">
+            <img
+              src="/images/zonsondergang-vissershaven.jpg"
+              alt="De zon gaat onder boven de vissershaven van Stellendam."
+              width="1441"
+              height="1092"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <div class="baan-tekst">
+            <span class="baan-label">Een dagdeel werken</span>
+            <h3>Vergaderen</h3>
+            <p>Een ruimte over de buitenhaven, met koffie, lunch en borrel uit eigen keuken.</p>
+            <span class="baan-link">Naar de vergaderruimte</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ZO WERKT HET ============ -->
+  <section class="sectie sectie-haven">
+    <div class="rail stappen-rij">
+      <div class="stappen-kop">
+        <p class="eyebrow">Zo werkt het</p>
+        <h2>Van idee naar tafel</h2>
+        <p class="lead">Drie stappen, en je weet waar je aan begint.</p>
+      </div>
+      <ol class="stappen">
+        {
+          stappen.map((stap) => (
+            <li class="stap">
+              <span class="stap-nummer">{stap.stap}</span>
+              <h3>{stap.titel}</h3>
+              <p>{stap.tekst}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ WAT JE KRIJGT ============ -->
+  <section class="sectie sectie-schuim">
+    <div class="rail beloften-grid">
+      <div class="">
+        <SectieKop
+          eyebrow="In de winkel"
+          title="Wat je haalt"
+          lead="Elke week vers aangeleverd. Ambachtelijk bereid, zonder E-nummers, met verse kruiden uit de eigen tuin."
+        />
+        <ul class="beloften">
+          {
+            beloften.map((belofte) => (
+              <li>
+                <h3>{belofte.titel}</h3>
+                <p>{belofte.tekst}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <figure class="ambacht-foto">
+        <img
+          src="/images/gerookte-paling.jpeg"
+          alt="Gerookte paling op een houten bord met een naamplaat."
+          width="1152"
+          height="2048"
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption>
+          Gerookte paling, zelf gerookt. Zonder kunstmatige toevoegingen.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ VAN DE KAART ============ -->
+  <section class="sectie">
+    <div class="rail kaart-sectie">
+      <div class="">
+        <SectieKop
+          eyebrow="Van de kaart"
+          title="Wat er vanavond op staat"
+          lead="Een klein deel van wat er elke week ligt. De rest verschilt met de vismijn en met wat er op de grill gebeurt."
+        />
+        <a href="/ambachtswinkel" class="tekst-link kaart-link">Bekijk de hele winkel</a>
+      </div>
+
+      <div class="">
+        <Menukaart
+          titel="Van de vismijn"
+          ondertitel="Verse vis, elke week"
+          rows={visKaart}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ OVER ONS ============ -->
+  <section class="sectie sectie-schuim">
+    <div class="rail">
+      <SectieKop eyebrow="Over ons" title="Twee mensen, één keuken" lead={overOns.passie} />
+
+      <div class="duo">
+        {
+          overOns.duo.map((persoon) => (
+            <article class="duo-lid">
+              <img
+                src={persoon.afbeelding}
+                alt={persoon.alt}
+                width="800"
+                height="800"
+                loading="lazy"
+                decoding="async"
+                style={`object-position: ${persoon.positie}`}
+              />
+              <h3>{persoon.naam}</h3>
+              <p class="duo-rol">{persoon.rol}</p>
+              <p>{persoon.tekst}</p>
+            </article>
+          ))
+        }
+      </div>
+
+      <figure class="duo-samen">
+        <img
+          src={overOns.samen.afbeelding}
+          alt={overOns.samen.alt}
+          width="2000"
+          height="1333"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ PRIJZEN ============ -->
+  <section class="sectie">
+    <div class="rail prijzen-grid">
+      <div class="">
+        <SectieKop
+          eyebrow="Voor de barbecue"
+          title="Vleespakketten"
+          lead="Twee pakketten, allebei met vijf of meer soorten vlees van eigen huis. Kok en bediening kunnen wij regelen."
+        />
+        <a href="/catering#vleespakketten" class="tekst-link">Alle producten en prijzen</a>
+      </div>
+
+      <div class="">
+        <Menukaart
+          titel="Vleespakketten"
+          ondertitel="Per persoon, voor de barbecue"
+          rows={[
+            {
+              naam: 'Vleespakket basis',
+              prijs: '€ 9,95 p.p.',
+              omschrijving:
+                'Kipsaté, kip shaslick, classic hamburger, BBQ worst en gemarineerde speklap.',
+            },
+            {
+              naam: 'Vleespakket luxe',
+              prijs: '€ 13,95 p.p.',
+              omschrijving:
+                'Ook zalm in hollandaise, spareribs, procureurlap, Black Angus burger en biefstukspies. Maximaal vijf personen.',
+            },
+          ]}
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ REVIEWS ============ -->
+  <section class="sectie sectie-schuim">
+    <div class="rail">
+      <SectieKop
+        eyebrow="Klanten"
+        title="Wat ze ervan vinden"
+        lead="Gemiddeld 5,0 op basis van zes reviews op Facebook."
+        align="center"
+      />
+
+      <div class="reviews">
+        {
+          reviews.map((review) => (
+            <figure class="review">
+              <span class="review-avatar" aria-hidden="true">
+                {review.naam.charAt(0)}
+              </span>
+              <span class="review-sterren" role="img" aria-label="5 van 5 sterren">
+                {
+                  Array.from({ length: 5 }).map(() => (
+                    <svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true">
+                      <path
+                        d="M8 1.6l1.9 3.9 4.3.6-3.1 3 .7 4.3L8 11.4 4.2 13.4l.7-4.3-3.1-3 4.3-.6z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  ))
+                }
+              </span>
+              <blockquote>{review.tekst}</blockquote>
+              <figcaption>
+                <span class="review-naam">{review.naam}</span>
+                <span class="review-datum">Facebook review, {review.datum}</span>
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ INSTAGRAM ============ -->
+  <section class="sectie">
+    <div class="rail">
+      <div class="instagram-kop">
+        <SectieKop
+          eyebrow="Instagram"
+          title="Volg ons op @ambachtswinkel"
+          lead="Het ambacht in actie. Nieuwe specialiteiten, de vismijn en wat er op de grill gebeurt."
+        />
+        <a href={site.instagram} target="_blank" rel="noopener" class="knop knop-outline">
+          Bekijk Instagram
+        </a>
+      </div>
+
+      <div class="instagram-grid">
+        {
+          instagramPosts.map((post) => (
+            <a
+              href={site.instagram}
+              target="_blank"
+              rel="noopener"
+              class="instagram-post"
+            >
+              <img
+                src={post.afbeelding}
+                alt={post.alt}
+                width="800"
+                height="800"
+                loading="lazy"
+                decoding="async"
+              />
+              <span class="instagram-overlay">
+                <span class="instagram-titel">{post.titel}</span>
+                <span class="instagram-meta">
+                  {post.likes} likes · {post.reacties} reacties
+                </span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <CtaBlok
+    title="Zin in een tafel vol eten?"
+    text="Vertel ons wat je viert en hoeveel mensen er komen. Wij maken een offerte met een vaste prijs en zorgen voor het vuur."
+    primaryLabel="Vraag een offerte aan"
+    primaryHref="/contact"
+    secondaryLabel="Bekijk de openingstijden"
+    secondaryHref="/ambachtswinkel#open"
+  />
+</BaseLayout>
+
+<style>
+  /* ---- BANEN ---- */
+  .banen {
+    display: grid;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .baan {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .baan-foto {
+    width: min(100%, 15rem);
+    overflow: hidden;
+    border-radius: 50%;
+  }
+
+  .baan-foto img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    transition: transform 400ms var(--easing);
+  }
+
+  .baan:hover .baan-foto img {
+    transform: scale(1.04);
+  }
+
+  .baan-tekst {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .baan-tekst h3 {
+    font-size: 1.375rem;
+  }
+
+  /* Het label boven de titel: de gelegenheid, niet de categorie. */
+  .baan-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-signaal);
+  }
+
+  .baan-tekst p {
+    color: var(--color-ink-mist);
+    font-size: 0.9375rem;
+    max-width: 22rem;
+  }
+
+  .baan-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-top: 0.5rem;
+    border-radius: 50%;
+    background-color: var(--color-signaal);
+    color: var(--color-wit);
+    font-size: 0;
+    overflow: hidden;
+    transition: background-color var(--duur) var(--easing);
+  }
+
+  .baan-link::before {
+    content: '→';
+    font-size: 1.0625rem;
+    line-height: 1;
+    transition: transform 260ms var(--easing);
+  }
+
+  .baan:hover .baan-link {
+    background-color: var(--color-signaal-donker);
+  }
+
+  .baan:hover .baan-link::before {
+    transform: translateX(3px);
+  }
+
+  @media (min-width: 768px) {
+    .banen {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+  }
+
+  /* ---- STAPPEN ---- */
+  .stappen-rij {
+    display: grid;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  .stappen-kop h2 {
+    font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+    margin-top: 0.625rem;
+  }
+
+  .stappen-kop .lead {
+    margin-top: 0.875rem;
+  }
+
+  .stappen {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 2rem;
+  }
+
+  .stap-nummer {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    background-color: var(--color-signaal);
+    color: var(--color-wit);
+    font-size: 0.8125rem;
+    font-weight: 700;
+  }
+
+  .stap h3 {
+    font-size: 1.125rem;
+    margin-top: 1rem;
+  }
+
+  .stap p {
+    margin-top: 0.5rem;
+    font-size: 0.9375rem;
+  }
+
+  @media (min-width: 900px) {
+    .stappen-rij {
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 4rem;
+    }
+
+    .stappen {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  /* ---- BELOFTEN ---- */
+  .beloften-grid {
+    display: grid;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .beloften {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .beloften li {
+    border-top: 1px solid var(--color-lijn);
+    padding-top: 1rem;
+  }
+
+  .beloften h3 {
+    font-size: 1.125rem;
+  }
+
+  .beloften p {
+    margin-top: 0.375rem;
+    color: var(--color-ink-mist);
+    font-size: 0.9375rem;
+  }
+
+  .ambacht-foto {
+    margin: 0;
+  }
+
+  .ambacht-foto img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-kaart);
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .ambacht-foto figcaption {
+    margin-top: 0.875rem;
+    font-size: 0.8125rem;
+    color: var(--color-ink-mist);
+  }
+
+  @media (min-width: 900px) {
+    .beloften-grid {
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 4rem;
+    }
+
+    .beloften {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem 2.5rem;
+    }
+  }
+
+  /* ---- VAN DE KAART ---- */
+  .kaart-sectie {
+    display: grid;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .kaart-link {
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 900px) {
+    .kaart-sectie {
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+  }
+
+  /* ---- MOMENTEN ---- */
+  .momenten {
+    display: grid;
+    gap: 2.5rem;
+    margin-top: 3.5rem;
+  }
+
+  .moment {
+    position: relative;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--color-lijn);
+  }
+
+  .moment-label {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-signaal);
+  }
+
+  .moment h3 {
+    font-size: 1.375rem;
+    margin-top: 0.625rem;
+  }
+
+  .moment p {
+    margin-top: 0.5rem;
+    color: var(--color-ink-mist);
+    font-size: 0.9375rem;
+    max-width: 26rem;
+  }
+
+  @media (min-width: 800px) {
+    .momenten {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+    }
+  }
+
+  /* ---- DUO ---- */
+  .duo {
+    display: grid;
+    gap: 2.5rem;
+    margin-top: 3rem;
+  }
+
+  .duo-lid img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+    border-radius: var(--radius-kaart);
+    margin-bottom: 1.25rem;
+  }
+
+  .duo-samen {
+    margin: 3rem 0 0;
+  }
+
+  .duo-samen img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-kaart);
+    aspect-ratio: 3 / 1;
+    object-fit: cover;
+  }
+
+  @media (max-width: 767px) {
+    .duo-samen img {
+      aspect-ratio: 16 / 10;
+    }
+  }
+
+  .duo-lid h3 {
+    font-size: 1.375rem;
+  }
+
+  .duo-rol {
+    margin-top: 0.25rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-signaal);
+  }
+
+  .duo-lid p:last-child {
+    margin-top: 0.75rem;
+    color: var(--color-ink-mist);
+    font-size: 0.9375rem;
+    max-width: 34rem;
+  }
+
+  @media (min-width: 768px) {
+    .duo {
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+  }
+
+  /* ---- PRIJZEN ---- */
+  .prijzen-grid {
+    display: grid;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  .prijzen-grid .tekst-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  @media (min-width: 900px) {
+    .prijzen-grid {
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 4rem;
+    }
+  }
+
+  /* ---- REVIEWS ---- */
+  .reviews {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .review {
+    margin: 0;
+    padding: 1.75rem;
+    background-color: var(--color-wit);
+    border: 1px solid var(--color-lijn);
+    border-radius: var(--radius-kaart);
+  }
+
+  .review-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background-color: var(--color-signaal);
+    color: var(--color-wit);
+    font-size: 1.125rem;
+    font-weight: 700;
+  }
+
+  .review-sterren {
+    display: flex;
+    gap: 0.125rem;
+    margin-top: 1rem;
+    color: var(--color-vuurtoren);
+  }
+
+  .review blockquote {
+    margin: 0.875rem 0 0;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--color-ink);
+  }
+
+  .review figcaption {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.25rem;
+    font-size: 0.8125rem;
+  }
+
+  .review-naam {
+    font-weight: 600;
+    color: var(--color-haven);
+  }
+
+  .review-datum {
+    color: var(--color-ink-mist);
+  }
+
+  @media (min-width: 768px) {
+    .reviews {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .reviews {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* ---- INSTAGRAM ---- */
+  .instagram-kop {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .instagram-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+    margin-top: 2.5rem;
+  }
+
+  .instagram-post {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: var(--radius-kaart);
+    text-decoration: none;
+    background-color: var(--color-schuim);
+  }
+
+  .instagram-post img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+  }
+
+  .instagram-overlay {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 1.25rem 1rem 0.875rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgb(10 32 54 / 0.92) 100%
+    );
+  }
+
+  .instagram-titel {
+    color: var(--color-wit);
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .instagram-meta {
+    color: var(--color-wit);
+    font-size: 0.75rem;
+  }
+
+  @media (min-width: 640px) {
+    .instagram-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  @media (min-width: 900px) {
+    .instagram-kop {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+  }
+</style>
