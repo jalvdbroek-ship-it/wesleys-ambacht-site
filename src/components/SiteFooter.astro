@@ -1,5 +1,6 @@
 ---
 import { navigation, site } from '../data/site';
+import { withBase } from '../lib/urls';
 
 const jaar = new Date().getFullYear();
 const openingstijden = site.openingstijden;
@@ -9,7 +10,7 @@ const openingstijden = site.openingstijden;
   <span class="voet-boog" aria-hidden="true"></span>
   <div class="rail voet-inhoud">
     <div class="voet-kolom voet-merk">
-      <img src="/images/merk.png" alt="Wesley's Ambacht" width="1013" height="822" class="voet-logo" />
+      <img src={withBase('/images/merk.png')} alt="Wesley's Ambacht" width="1013" height="822" class="voet-logo" />
       <p class="voet-tagline">
         Verse vis van de vismijn in Stellendam. Ambachtelijke catering op locatie en
         vergaderen met uitzicht over de buitenhaven.
@@ -22,7 +23,7 @@ const openingstijden = site.openingstijden;
         {
           navigation.map((item) => (
             <li>
-              <a href={item.href}>{item.label}</a>
+              <a href={withBase(item.href)}>{item.label}</a>
             </li>
           ))
         }

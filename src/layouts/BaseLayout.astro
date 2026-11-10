@@ -4,6 +4,7 @@ import StickyHeader from '../components/StickyHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import SluitingBanner from '../components/SluitingBanner.astro';
 import MobielActieBalk from '../components/MobielActieBalk.astro';
+import { withBase } from '../lib/urls';
 
 interface Props {
   title?: string;
@@ -31,21 +32,21 @@ const siteUrl = 'https://ambachtbijwesley.nl';
     <meta name="description" content={description} />
     <link rel="canonical" href={Astro.url.href} />
 
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" href={withBase('/favicon.png')} />
+    <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url.href} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL(ogImage, siteUrl).href} />
+    <meta property="og:image" content={new URL(withBase(ogImage), siteUrl).href} />
     <meta property="og:locale" content="nl_NL" />
     <meta property="og:site_name" content="Wesley's Ambacht" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL(ogImage, siteUrl).href} />
+    <meta name="twitter:image" content={new URL(withBase(ogImage), siteUrl).href} />
 
     <script is:inline>
       document.documentElement.classList.add('js');

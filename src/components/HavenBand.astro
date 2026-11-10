@@ -3,6 +3,7 @@
  * Een brede fotoband over de hele breedte, met een korte zin erop.
  * Zet de pagina op zijn hoogte en laat de ogen even rust.
  */
+import { withBase } from '../lib/urls';
 interface Props {
   afbeelding: string;
   alt: string;
@@ -15,7 +16,7 @@ const { afbeelding, alt, zin, onderschrift, donker = true } = Astro.props;
 ---
 
 <figure class={`havenband${donker ? ' is-donker' : ''}`}>
-  <img src={afbeelding} alt={alt} loading="lazy" decoding="async" />
+  <img src={withBase(afbeelding)} alt={alt} loading="lazy" decoding="async" />
   <div class="havenband-scherm" aria-hidden="true"></div>
   <figcaption class="rail havenband-tekst">
     <p class="havenband-zin">{zin}</p>

@@ -39,5 +39,9 @@
   },
   "overrides": {
     "vite": "8.3.4"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "playwright": "^1.65.0"
   }
 }

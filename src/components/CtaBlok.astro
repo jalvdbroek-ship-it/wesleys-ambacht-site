@@ -3,6 +3,7 @@
  * Afsluitende actieblok. De donkere vlakte van de site: zeeblauw
  * met witte tekst en een knop in het signaal.
  */
+import { withBase } from '../lib/urls';
 interface Props {
   title: string;
   text: string;
@@ -29,10 +30,10 @@ const {
       <p>{text}</p>
     </div>
     <div class="cta-knoppen">
-      <a href={primaryHref} class="knop knop-signaal">{primaryLabel}</a>
+      <a href={withBase(primaryHref)} class="knop knop-signaal">{primaryLabel}</a>
       {
         secondaryLabel && secondaryHref && (
-          <a href={secondaryHref} class="knop knop-wit">{secondaryLabel}</a>
+          <a href={withBase(secondaryHref)} class="knop knop-wit">{secondaryLabel}</a>
         )
       }
     </div>

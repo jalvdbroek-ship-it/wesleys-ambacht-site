@@ -5,6 +5,7 @@
  * bereik, zonder dat het de pagina wegdrukt.
  */
 import { site } from '../data/site';
+import { withBase } from '../lib/urls';
 ---
 
 <div class="actiebalk" aria-label="Snel contact">
@@ -19,7 +20,7 @@ import { site } from '../data/site';
     </svg>
     Bellen
   </a>
-  <a href="/contact" class="actiebalk-knop actiebalk-hoofd">Offerte aanvragen</a>
+  <a href={withBase('/contact')} class="actiebalk-knop actiebalk-hoofd">Offerte aanvragen</a>
 </div>
 
 <style>

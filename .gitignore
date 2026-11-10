@@ -9,3 +9,6 @@ tools/
 
 # Tijdelijke werkbestanden van de assistent
 .gg/
+
+# Interne overdrachtsdocumenten blijven buiten de publieke site-repo
+handover/

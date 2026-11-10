@@ -6,6 +6,7 @@ import CtaBlok from '../components/CtaBlok.astro';
 import Faq from '../components/Faq.astro';
 import HavenBand from '../components/HavenBand.astro';
 import { beloften, overOns, samenwerkingen, site, havenRondje } from '../data/site';
+import { withBase } from '../lib/urls';
 ---
 
 <BaseLayout
@@ -40,7 +41,7 @@ import { beloften, overOns, samenwerkingen, site, havenRondje } from '../data/si
 
         <figure class="winkel-foto">
           <img
-            src="/images/haven-avond.jpg"
+            src={withBase('/images/haven-avond.jpg')}
             alt="Vissersboten aan de avondhaven van Stellendam, met de kustverlichting aan."
             width="1092"
             height="1441"
@@ -156,7 +157,7 @@ import { beloften, overOns, samenwerkingen, site, havenRondje } from '../data/si
 
       <figure class="terras-foto">
         <img
-          src="/images/havenplein-terras.jpg"
+          src={withBase('/images/havenplein-terras.jpg')}
           alt="Het terras van de Ambachtswinkel aan de buitenhaven, met tafels naast het water."
           width="1417"
           height="1110"

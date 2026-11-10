@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../data/site';
+import { withBase } from '../lib/urls';
 ---
 
 <BaseLayout
@@ -17,7 +18,7 @@ import { site } from '../data/site';
       </p>
       <div class="fout-knoppen">
         <a href="/" class="knop knop-haven">Naar de homepage</a>
-        <a href="/ambachtswinkel" class="knop knop-outline">De Ambachtswinkel</a>
+        <a href={withBase('/ambachtswinkel')} class="knop knop-outline">De Ambachtswinkel</a>
         <a href={`tel:${site.phoneHref}`} class="knop knop-outline">Bel {site.phone}</a>
       </div>
     </div>

@@ -2,8 +2,19 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
+// Standaard is dit het eigen domein. Bij een preview-deploy op GitHub
+// Pages worden deze waarden overschreven via env vars.
+//
+// Let op: DEPLOY_BASE bevat het pad zonder voorloopende slash. Een waarde
+// als "/wesleys-ambacht-site" wordt door Git Bash op Windows als
+// systeempad omgezet.
+const site = process.env.SITE_URL ?? 'https://ambachtbijwesley.nl';
+const deployBase = process.env.DEPLOY_BASE?.trim();
+const base = deployBase ? `/${deployBase.replace(/^\/+|\/+$/g, '')}` : '/';
+
 export default defineConfig({
-  site: 'https://ambachtbijwesley.nl',
+  site,
+  base,
   vite: {
     plugins: [tailwindcss()],
     server: {

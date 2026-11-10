@@ -15,6 +15,7 @@ import {
   visKaart,
   vuurEnKade,
 } from '../data/site';
+import { withBase } from '../lib/urls';
 ---
 
 <BaseLayout>
@@ -83,10 +84,10 @@ import {
       />
 
       <div class="banen">
-        <a href="/ambachtswinkel" class="baan">
+        <a href={withBase('/ambachtswinkel')} class="baan">
           <div class="baan-foto">
             <img
-              src="/images/havenplein-terras.jpg"
+              src={withBase('/images/havenplein-terras.jpg')}
               alt="Het terras van de Ambachtswinkel aan de buitenhaven van Stellendam."
               width="1417"
               height="1110"
@@ -103,10 +104,10 @@ import {
           </div>
         </a>
 
-        <a href="/catering" class="baan">
+        <a href={withBase('/catering')} class="baan">
           <div class="baan-foto">
             <img
-              src="/images/barbecueplank.jpg"
+              src={withBase('/images/barbecueplank.jpg')}
               alt="Een barbecueplank met worst, hamburger, loaded fries en saus."
               width="1448"
               height="1086"
@@ -122,10 +123,10 @@ import {
           </div>
         </a>
 
-        <a href="/vergaderen" class="baan">
+        <a href={withBase('/vergaderen')} class="baan">
           <div class="baan-foto">
             <img
-              src="/images/zonsondergang-vissershaven.jpg"
+              src={withBase('/images/zonsondergang-vissershaven.jpg')}
               alt="De zon gaat onder boven de vissershaven van Stellendam."
               width="1441"
               height="1092"
@@ -189,7 +190,7 @@ import {
 
       <figure class="ambacht-foto">
         <img
-          src="/images/gerookte-paling.jpeg"
+          src={withBase('/images/gerookte-paling.jpeg')}
           alt="Gerookte paling op een houten bord met een naamplaat."
           width="1152"
           height="2048"
@@ -212,7 +213,7 @@ import {
           title="Wat er vanavond op staat"
           lead="Een klein deel van wat er elke week ligt. De rest verschilt met de vismijn en met wat er op de grill gebeurt."
         />
-        <a href="/ambachtswinkel" class="tekst-link kaart-link">Bekijk de hele winkel</a>
+        <a href={withBase('/ambachtswinkel')} class="tekst-link kaart-link">Bekijk de hele winkel</a>
       </div>
 
       <div class="">
@@ -235,7 +236,7 @@ import {
           overOns.duo.map((persoon) => (
             <article class="duo-lid">
               <img
-                src={persoon.afbeelding}
+                src={withBase(persoon.afbeelding)}
                 alt={persoon.alt}
                 width="800"
                 height="800"
@@ -253,7 +254,7 @@ import {
 
       <figure class="duo-samen">
         <img
-          src={overOns.samen.afbeelding}
+          src={withBase(overOns.samen.afbeelding)}
           alt={overOns.samen.alt}
           width="2000"
           height="1333"
@@ -273,7 +274,7 @@ import {
           title="Vleespakketten"
           lead="Twee pakketten, allebei met vijf of meer soorten vlees van eigen huis. Kok en bediening kunnen wij regelen."
         />
-        <a href="/catering#vleespakketten" class="tekst-link">Alle producten en prijzen</a>
+        <a href={withBase('/catering#vleespakketten')} class="tekst-link">Alle producten en prijzen</a>
       </div>
 
       <div class="">
@@ -364,7 +365,7 @@ import {
               class="instagram-post"
             >
               <img
-                src={post.afbeelding}
+                src={withBase(post.afbeelding)}
                 alt={post.alt}
                 width="800"
                 height="800"

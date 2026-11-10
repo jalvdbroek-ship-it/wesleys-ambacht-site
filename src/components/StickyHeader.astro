@@ -1,22 +1,23 @@
 ---
 import { navigation, site, openingstijdenCompact } from '../data/site';
+import { withBase, withoutBase } from '../lib/urls';
 
-const pad = Astro.url.pathname;
+const pad = withoutBase(Astro.url.pathname);
 const isActief = (href: string) =>
   href === '/' ? pad === '/' : pad === href || pad.startsWith(`${href}/`);
 ---
 
 <header class="kop" id="kop">
   <div class="rail kop-rij">
-    <a href="/" class="merk" aria-label="Wesley's Ambacht, naar de homepage">
-      <img src="/images/merk.png" alt="" width="1013" height="822" class="merk-logo" />
+    <a href={withBase('/')} class="merk" aria-label="Wesley's Ambacht, naar de homepage">
+      <img src={withBase('/images/merk.png')} alt="" width="1013" height="822" class="merk-logo" />
     </a>
 
     <nav class="menu" aria-label="Hoofdmenu">
       {
         navigation.map((item) => (
           <a
-            href={item.href}
+            href={withBase(item.href)}
             class={`menu-link${isActief(item.href) ? ' is-actief' : ''}`}
             aria-current={isActief(item.href) ? 'page' : undefined}
           >
@@ -56,7 +57,7 @@ const isActief = (href: string) =>
     <div class="rail mobiel-menu-inhoud">
       {
         navigation.map((item) => (
-          <a href={item.href} class={`mobiel-link${isActief(item.href) ? ' is-actief' : ''}`}>
+          <a href={withBase(item.href)} class={`mobiel-link${isActief(item.href) ? ' is-actief' : ''}`}>
             {item.label}
           </a>
         ))

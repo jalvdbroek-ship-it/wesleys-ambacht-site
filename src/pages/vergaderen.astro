@@ -6,6 +6,7 @@ import CtaBlok from '../components/CtaBlok.astro';
 import Menukaart from '../components/Menukaart.astro';
 import HavenBand from '../components/HavenBand.astro';
 import { vergaderArrangementen, site, havenRondje } from '../data/site';
+import { withBase } from '../lib/urls';
 ---
 
 <BaseLayout
@@ -53,7 +54,7 @@ import { vergaderArrangementen, site, havenRondje } from '../data/site';
 
       <figure class="ruimte-foto">
         <img
-          src="/images/zonsondergang-havenkroeg.jpg"
+          src={withBase('/images/zonsondergang-havenkroeg.jpg')}
           alt="Het havenplein van Stellendam bij zonsondergang, met terrassen en de havenkroeg."
           width="1415"
           height="1111"

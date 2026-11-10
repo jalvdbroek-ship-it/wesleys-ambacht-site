@@ -3,6 +3,7 @@
  * De held van elke pagina. Links de tekst, rechts een foto in een
  * cirkel met de ring van de haven eromheen.
  */
+import { withBase } from '../lib/urls';
 interface Actie {
   label: string;
   href: string;
@@ -55,7 +56,7 @@ const {
           <div class="hero-acties hero-opin hero-opin-4">
             {acties.map((actie) => (
               <a
-                href={actie.href}
+                href={withBase(actie.href)}
                 class={`knop ${actie.variant === 'outline' ? 'knop-outline' : 'knop-haven'}`}
               >
                 {actie.label}
@@ -93,7 +94,7 @@ const {
       <div class={`hero-foto-lijst${gloed ? ' gloed' : ''}`}>
         <div class="hero-foto-binnenkant" style={`--foto-zoom: ${fotoZoom}`}>
           <img
-            src={foto}
+            src={withBase(foto)}
             alt={fotoAlt}
             width="1417"
             height="1110"
