@@ -29,6 +29,7 @@ De site draait dan op http://localhost:4321.
 | `npm run check:overflow` | Controleert alle pagina's op horizontale overloop |
 | `npm run shots` | Maakt screenshots van alle pagina's op desktop en mobiel |
 | `npm run social` | Bouwt de social media-beelden in drie formaten, zie `social/` |
+| `npm run social:v2` | Bouwt versie 2 van de social media-beelden, zonder de horizontale strepen |
 | `npm run merk:snijden` | Snijdt het beeldmerk uit zijn marge, met transparante achtergrond |
 | `npm run handover` | Bouwt het overdrachtsdocument in `handover/` |
 | `npm run handover:push` | Stuurt de overdracht naar Notion, Linear en Slack |
@@ -38,7 +39,8 @@ De site draait dan op http://localhost:4321.
 De tweede heeft de site nodig op poort 4321 (`npm run preview`).
 
 De social media-beelden staan in `social/`: tien posts in drie
-formaten, met bijschriften. Zie `social/README.md`.
+formaten, met bijschriften. Versie 2 in `social/posts-v2/` is de
+schoone, zonder de horizontale strepen. Zie `social/README.md`.
 
 ## Overdracht naar Notion, Linear en Slack
 
@@ -110,13 +112,17 @@ scripts/
   build-handover.mjs  bouwt het overdrachtsdocument
   push-handover.mjs   stuurt de overdracht naar Notion, Linear en Slack
   slack-msg.mjs       schrijft het Slack-bericht
-  build-social.mjs    bouwt de social media-beelden
+  build-social.mjs    bouwt de social media-beelden (versie 1)
+  build-social-v2.mjs bouwt de social media-beelden (versie 2, zonder strepen)
 public/
   images/             foto's van de winkel, het team en de producten
+  images/patroon-haven.png   de tegel van het achtergrondpatroon
   brochures/          de prijslijsten van Wesley's Ambacht
 social/
-  posts/              de social media-beelden in drie formaten
+  posts/              de social media-beelden in drie formaten (versie 1)
+  posts-v2/           versie 2: hetzelfde, maar zonder de horizontale strepen
   CAPTIONS.md         de bijschriften per post
+  CAPTIONS-V2.md      dezelfde bijschriften voor versie 2
   README.md           wat er in elke post zit
 handover/
   wesleys-ambacht-handover.html   het overdrachtsdocument
