@@ -18,8 +18,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      SITE_URL: https://jalvdbroek-ship-it.github.io/wesleys-ambacht-site
-      DEPLOY_BASE: wesleys-ambacht-site
+      # De repositorynaam bepaalt het pad van de site op GitHub Pages.
+      # Die is hier afgeleid van de repository zelf, zodat de build blijft
+      # werken als de repository naar een ander account verhuist.
+      DEPLOY_BASE: ${{ github.event.repository.name }}
+      SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
     steps:
       - uses: actions/checkout@v4
 

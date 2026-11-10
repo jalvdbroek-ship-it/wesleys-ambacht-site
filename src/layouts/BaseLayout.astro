@@ -18,7 +18,10 @@ const {
   ogImage = '/images/linkkaart.png',
 } = Astro.props;
 
-const siteUrl = 'https://ambachtbijwesley.nl';
+// Het adres van de site zoals die op dat moment gebouwd is. Op het eigen
+// domein is dat ambachtbijwesley.nl, op GitHub Pages de URL van de
+// deployment. Astro.site volgt de `site` uit astro.config.mjs.
+const siteUrl = (Astro.site?.href ?? 'https://ambachtbijwesley.nl').replace(/\/+$/, '');
 ---
 
 <!doctype html>
@@ -67,7 +70,7 @@ const siteUrl = 'https://ambachtbijwesley.nl';
       telephone: '+31639581128',
       email: 'info@ambachtswinkel.nl',
       url: siteUrl,
-      image: new URL(ogImage, siteUrl).href,
+      image: new URL(withBase(ogImage), siteUrl).href,
       priceRange: '€€',
       address: {
         '@type': 'PostalAddress',
