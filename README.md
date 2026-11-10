@@ -28,6 +28,7 @@ De site draait dan op http://localhost:4321.
 | `npm run verify:ui` | Browsercontrole op focus, menu, FAQ, reduced motion en inhoud |
 | `npm run check:overflow` | Controleert alle pagina's op horizontale overloop |
 | `npm run shots` | Maakt screenshots van alle pagina's op desktop en mobiel |
+| `npm run social` | Bouwt de social media-beelden in drie formaten, zie `social/` |
 | `npm run merk:snijden` | Snijdt het beeldmerk uit zijn marge, met transparante achtergrond |
 | `npm run handover` | Bouwt het overdrachtsdocument in `handover/` |
 | `npm run handover:push` | Stuurt de overdracht naar Notion, Linear en Slack |
@@ -35,6 +36,9 @@ De site draait dan op http://localhost:4321.
 
 `npm run contrast` en `npm run verify:ui` horen groen te zijn voordat je live gaat.
 De tweede heeft de site nodig op poort 4321 (`npm run preview`).
+
+De social media-beelden staan in `social/`: tien posts in drie
+formaten, met bijschriften. Zie `social/README.md`.
 
 ## Overdracht naar Notion, Linear en Slack
 
@@ -106,9 +110,14 @@ scripts/
   build-handover.mjs  bouwt het overdrachtsdocument
   push-handover.mjs   stuurt de overdracht naar Notion, Linear en Slack
   slack-msg.mjs       schrijft het Slack-bericht
+  build-social.mjs    bouwt de social media-beelden
 public/
   images/             foto's van de winkel, het team en de producten
   brochures/          de prijslijsten van Wesley's Ambacht
+social/
+  posts/              de social media-beelden in drie formaten
+  CAPTIONS.md         de bijschriften per post
+  README.md           wat er in elke post zit
 handover/
   wesleys-ambacht-handover.html   het overdrachtsdocument
   wesleys-ambacht-website.zip      de hele site: HTML plus broncode

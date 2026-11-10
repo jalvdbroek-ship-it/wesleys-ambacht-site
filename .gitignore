@@ -6,3 +6,6 @@ dist/
 !.env.example
 handover/.env
 tools/
+
+# Tijdelijke werkbestanden van de assistent
+.gg/

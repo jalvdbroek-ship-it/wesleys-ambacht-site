@@ -25,6 +25,7 @@
     "check:overflow": "node scripts/check-overflow.mjs",
     "merk:snijden": "node scripts/crop-logo.mjs",
     "linkkaart": "node scripts/build-linkkaart.mjs",
+    "social": "node scripts/build-social.mjs",
     "delen": "bash scripts/delen.sh",
     "serve": "node scripts/serve-dist.mjs"
   },
