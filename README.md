@@ -6,6 +6,27 @@ ambachtelijke catering op locatie en een vergaderruimte met uitzicht over de hav
 Astro 5 + Tailwind v4, volledig statisch. De stijlrichting heet **Havenlicht** en
 staat in `DESIGN.md`.
 
+## De live site
+
+**https://jalvdbroek-ship-it.github.io/wesleys-ambacht-site/**
+
+Deze link blijft staan. Elke push naar `main` zet de site opnieuw live via
+GitHub Pages (`.github/workflows/pages.yml`). Je hoeft geen tunnel meer te
+starten en de link verdwijnt niet meer.
+
+| Route | Pagina |
+| --- | --- |
+| `/` | Home |
+| `/ambachtswinkel/` | De Ambachtswinkel |
+| `/catering/` | Catering |
+| `/vergaderen/` | Vergaderen |
+| `/contact/` | Contact en offerte |
+| `/404.html` | Pagina niet gevonden |
+
+Het eigen domein `ambachtbijwesley.nl` wijst nu nog naar de oude site op
+Netlify. Zodra die is omgezet komt de `site` in `astro.config.mjs` weer op
+het domein te staan en verdwijnt het basispad van de deployment.
+
 ## Starten
 
 ```bash
@@ -14,6 +35,32 @@ npm run dev
 ```
 
 De site draait dan op http://localhost:4321.
+
+### Bouwen met een basispad
+
+Op GitHub Pages staat de site in `/wesleys-ambacht-site`, op het eigen domein
+in `/`. Daarom leest `astro.config.mjs` de waarden uit de omgeving:
+
+```bash
+DEPLOY_BASE=wesleys-ambacht-site SITE_URL=https://jalvdbroek-ship-it.github.io/wesleys-ambacht-site npm run build
+```
+
+Alle interne links en afbeeldingen lopen via `src/lib/urls.ts`, dat het
+basispad ervoor zet. Vergeet die helper niet bij nieuwe pagina's: zonder
+`withBase` wijst een link naar `/contact` buiten het pad van de deployment.
+
+### De site online zetten
+
+De repository is openbaar en de Pages-build staat aan. Pushen naar `main`
+is genoeg:
+
+```bash
+git push origin main
+```
+
+De build is daarna te volgen onder Actions in de repository. De interne
+overdrachtsdocumenten in `handover/` staan bewust buiten de repository:
+die horen bij het interne overdrachtsproces, niet bij een openbare site.
 
 ## Scripts
 
@@ -99,6 +146,7 @@ dus voor Notion en Linear is vaak niets nodig.
 src/
   data/site.ts        alle inhoud: teksten, prijzen, producten, openingstijden
   layouts/BaseLayout  head, metadaten, structured data, header en footer
+  lib/urls.ts          zet het basispad voor alle interne links en afbeeldingen
   components/         header, footer, held, formulier, menukaart, sectiekop,
                       faq, cta, fotoband en de mobiele actiebalk
   pages/              index, ambachtswinkel, catering, vergaderen, contact, 404
@@ -156,7 +204,10 @@ handover/
 - [ ] Rechten op de foto's van Wesley en Marjoleine bevestigen, en de huisstijl
       definitief maken. Beide lopen in Linear onder WEB-39.
 - [ ] De SEO-migratie en redirects vanaf het huidige domein voeren.
+- [ ] `ambachtbijwesley.nl` omzetten naar deze build. Zolang dat niet is gedaan
+      serveert het domein nog de oude site op Netlify.
 - [ ] `astro.config.mjs` controleren: de `site` staat op `https://ambachtbijwesley.nl`.
+      Op de Pages-build wordt dat overschreven door `SITE_URL`.
 
 ## Over de beelden
 
